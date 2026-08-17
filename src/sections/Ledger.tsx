@@ -130,11 +130,11 @@ export default function Ledger() {
 
       <div className="ledger__head">
         <p className="eyebrow">The record</p>
-        <MaskedLines as="h2" text="Every transfer, in order." className="h2" />
+        <MaskedLines as="h2" text="Every payment, in order." className="h2" />
         <p className="dim" style={{ marginTop: '1rem' }}>
-          Money reaches the families through two coordinators, and most transfers cover
-          several households at once, so the record is kept by transfer rather than by
-          child. Nobody here is named. Nothing here identifies a child.
+          One payment usually covers several families at once, so we keep this by payment
+          rather than by person. We keep the people we help out of it: no names, no
+          schools, no places.
           {isPlaceholder ? ' The rows below are placeholders.' : ''}
         </p>
       </div>

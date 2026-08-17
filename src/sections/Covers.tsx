@@ -9,12 +9,12 @@ import { rateFor, show } from '../data/ledger'
  */
 const rate = rateFor(2026)
 const covers = [
-  { mwk: 40000, t: 'A 25kg bag of maize flour', b: 'The staple. It is the first line on almost every budget that comes in.' },
-  { mwk: 60000, t: 'A month of food for one household', b: 'Cooking oil, eggs, sugar, soap and flour, the list a family sends when the cupboard is empty.' },
-  { mwk: 55000, t: 'Exam fees for one student', b: 'The MSCE and JCE fees a family cannot always find, without which a child cannot sit the exam.' },
-  { mwk: 90000, t: 'Half a term of secondary tuition', b: 'Fees are usually paid in two instalments. This is one of them, for one student.' },
-  { mwk: 250000, t: "A month for one coordinator's families", b: 'A whole pooled budget: fees, food and transport for several households at once.' },
-  { mwk: 290000, t: 'A term of boarding fees', b: 'A place kept at boarding school for one child for a full term.' },
+  { mwk: 40000, t: 'A 25kg bag of maize flour', b: 'The staple. It is on almost every budget we get.' },
+  { mwk: 60000, t: 'A month of food for a household', b: 'Flour, cooking oil, eggs, sugar and soap. The list a family sends when the cupboard is empty.' },
+  { mwk: 55000, t: 'Exam fees for a student', b: 'Without these a child cannot sit the exam they have studied a year for.' },
+  { mwk: 90000, t: 'Half a term of school fees', b: 'Fees are usually paid in two halves. This is one half, for one student.' },
+  { mwk: 250000, t: 'A whole month for several families', b: 'A full budget: fees, food and transport for a group of households at once.' },
+  { mwk: 290000, t: 'A term of boarding for one child', b: 'A place kept at boarding school for a full term.' },
 ]
 
 export default function Covers() {
@@ -30,13 +30,13 @@ export default function Covers() {
       <p className="eyebrow">If you want to help</p>
       <MaskedLines
         as="h2"
-        text="Here is what an amount actually turns into."
+        text="This is what an amount actually buys."
         className="h2"
       />
       <Reveal as="p" className="lead">
-        The project is opening up to others who want to give. There is no button yet, and
-        nothing here is a suggested donation. It is simply the real prices from the
-        record, so you can see what any amount does on the ground.
+        We are starting to let other people help too. There is no button yet, and none of
+        these are asking amounts. They are just the real prices we pay, so you can see
+        what any amount does.
       </Reveal>
 
       <ul className="covers__list">
@@ -52,9 +52,9 @@ export default function Covers() {
       </ul>
 
       <Reveal as="p" className="dim covers__note">
-        Prices are what families quoted in the record, rounded. Kwacha is what actually
-        gets spent. The pound figures convert at roughly {new Intl.NumberFormat('en-GB').format(rate)} kwacha
-        to the pound, this year's rate, and move as the rate does.
+        These are prices from our own budgets, rounded off. Kwacha is what actually gets
+        spent. The pound figures are rough, at about {new Intl.NumberFormat('en-GB').format(rate)} kwacha
+        to the pound, and they move as the rate moves.
       </Reveal>
     </section>
   )

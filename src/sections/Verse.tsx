@@ -21,10 +21,10 @@ export default function Verse() {
           <cite className="verse__cite">James 1:27, King James Version</cite>
         </blockquote>
         <Reveal as="p" className="verse__gloss">
-          Undefiled means unmixed. The verse sets a fairly ordinary test: whether anyone
-          was actually visited, and whether anything actually changed for them. School
-          fees paid, flour delivered, a hospital bill covered. The rest of this site is
-          just the arithmetic of that.
+          That verse is where the name comes from. It sets a plain test: whether anyone
+          was actually helped, and whether anything actually changed for them. Fees paid,
+          flour delivered, a hospital bill covered. The rest of this site is just us
+          keeping count of that.
         </Reveal>
       </div>
     </section>

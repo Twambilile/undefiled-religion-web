@@ -1,7 +1,7 @@
 month,ref,category,amount,currency,note
+2023-02,Coordinator B,School fees,43.60,GBP,Monthly fees and exercise books
 2023-02,Coordinator B,Pocket money,12.96,GBP,
 2023-02,Coordinator B,Pocket money,16,GBP,
-2023-02,Coordinator B,School fees,43.60,GBP,Monthly fees and exercise books
 2023-03,Coordinator B,Monthly budget,35000,MWK,Split between a school trip and three households
 2023-03,Coordinator B,Transport,10000,MWK,
 2023-03,Coordinator B,Transport,30000,MWK,Travel home and back plus pocket money
@@ -11,65 +11,65 @@ month,ref,category,amount,currency,note
 2024-04,Coordinator B,School fees,399432,MWK,Fees and boarding needs
 2024-05,Coordinator B,One-off support,37000,MWK,
 2024-05,Coordinator B,School fees,70000,MWK,
-2024-07,Coordinator A,Exams,60000,MWK,
-2024-07,Coordinator A,Pocket money,40000,MWK,Pocket money and a handset
 2024-07,Coordinator A,Pooled transfer,146640,MWK,
 2024-07,Coordinator B,Pooled transfer,62905,MWK,
-2024-08,Coordinator A,Pooled transfer,207476,MWK,
+2024-07,Coordinator A,Pocket money,40000,MWK,Pocket money and a handset
+2024-07,Coordinator A,Exams,60000,MWK,
+2024-08,Coordinator A,Pooled transfer,207476,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
 2024-08,Coordinator B,Pooled transfer,136570,MWK,
-2024-09,Coordinator A,Pooled transfer,157814,MWK,
-2024-09,Coordinator A,Pooled transfer,167333,MWK,
-2024-09,Coordinator B,Pooled transfer,137398,MWK,
-2024-09,Coordinator B,Pooled transfer,305145,MWK,
-2024-10,Coordinator A,Pooled transfer,108146,MWK,
-2024-10,Coordinator A,Pooled transfer,220805,MWK,
-2024-10,Coordinator A,Pooled transfer,293562,MWK,
-2024-10,Coordinator A,Pooled transfer,62181,MWK,
-2024-10,Coordinator A,Pooled transfer,62181,MWK,
+2024-09,Coordinator A,Pooled transfer,157814,MWK,"Maize flour, cooking oil, sugar, eggs and pocket money"
+2024-09,Coordinator B,Pooled transfer,305145,MWK,"Pocket money, transport, school fees, boarding fees and school books"
+2024-09,Coordinator B,Pooled transfer,137398,MWK,Exam fees and school books
+2024-09,Coordinator A,Pooled transfer,167333,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
 2024-10,Coordinator B,Pooled transfer,106172,MWK,
-2024-10,Coordinator B,Pooled transfer,278052,MWK,
-2024-11,Coordinator A,Pooled transfer,94187,MWK,
+2024-10,Coordinator A,Pooled transfer,220805,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2024-10,Coordinator A,Pooled transfer,62181,MWK,
+2024-10,Coordinator A,Pooled transfer,62181,MWK,
+2024-10,Coordinator A,Pooled transfer,108146,MWK,
+2024-10,Coordinator B,Pooled transfer,278052,MWK,School fees
+2024-10,Coordinator A,Pooled transfer,293562,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2024-11,Coordinator A,Pooled transfer,94187,MWK,Pocket money and exam fees
 2024-11,Coordinator B,Pooled transfer,84063,MWK,
-2024-12,Coordinator A,Pooled transfer,134582,MWK,
-2024-12,Coordinator A,Pooled transfer,196045,MWK,
-2024-12,Coordinator A,Pooled transfer,228719,MWK,
-2024-12,Coordinator A,Pooled transfer,74383,MWK,
-2024-12,Coordinator B,Pooled transfer,121646,MWK,
-2024-12,Coordinator B,Pooled transfer,73393,MWK,
-2025-01,Coordinator A,Pooled transfer,115965,MWK,
-2025-01,Coordinator A,Pooled transfer,242059,MWK,
-2025-01,Coordinator A,Pooled transfer,303965,MWK,
-2025-01,Coordinator B,Pooled transfer,137056,MWK,
-2025-01,Coordinator B,Pooled transfer,143986,MWK,
-2025-01,Coordinator B,Pooled transfer,359217,MWK,
-2025-02,Coordinator A,Pooled transfer,151751,MWK,
-2025-02,Coordinator A,Pooled transfer,164748,MWK,
-2025-02,Coordinator B,Pooled transfer,141116,MWK,
-2025-03,Coordinator A,Pooled transfer,316251,MWK,
-2025-03,Coordinator A,Pooled transfer,89631,MWK,
+2024-12,Coordinator A,Pooled transfer,196045,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2024-12,Coordinator A,Pooled transfer,228719,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2024-12,Coordinator B,Pooled transfer,121646,MWK,Pocket money and transport
+2024-12,Coordinator B,Pooled transfer,73393,MWK,School fees
+2024-12,Coordinator A,Pooled transfer,74383,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2024-12,Coordinator A,Pooled transfer,134582,MWK,School fees
+2025-01,Coordinator A,Pooled transfer,303965,MWK,"Maize flour, cooking oil, eggs, pocket money and school fees"
+2025-01,Coordinator B,Pooled transfer,359217,MWK,"Maize flour, cooking oil, sugar, eggs and soap"
+2025-01,Coordinator B,Pooled transfer,137056,MWK,"Cooking oil, eggs, soya pieces and pocket money"
+2025-01,Coordinator A,Pooled transfer,242059,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2025-01,Coordinator B,Pooled transfer,143986,MWK,Pocket money and school fees
+2025-01,Coordinator A,Pooled transfer,115965,MWK,"Maize flour, cooking oil, eggs, soya pieces and soap"
+2025-02,Coordinator B,Pooled transfer,141116,MWK,"A mosquito net, bedding and pocket money"
+2025-02,Coordinator A,Pooled transfer,151751,MWK,"A mosquito net, bedding and pocket money"
+2025-02,Coordinator A,Pooled transfer,164748,MWK,"Maize flour, cooking oil and pocket money"
+2025-03,Coordinator A,Pooled transfer,316251,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2025-03,Coordinator A,Pooled transfer,89631,MWK,Medical care
 2025-03,Coordinator B,Pooled transfer,292050,MWK,
-2025-04,Coordinator A,Pooled transfer,229824,MWK,
-2025-04,Coordinator A,Pooled transfer,230580,MWK,
-2025-04,Coordinator A,Pooled transfer,368595,MWK,
-2025-04,Coordinator B,Pooled transfer,178794,MWK,
+2025-04,Coordinator B,Pooled transfer,178794,MWK,"Maize flour, cooking oil, sugar, eggs and soap"
+2025-04,Coordinator A,Pooled transfer,229824,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2025-04,Coordinator A,Pooled transfer,230580,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
 2025-04,Coordinator B,Pooled transfer,520382,MWK,
-2025-05,Coordinator A,Pooled transfer,260094,MWK,
+2025-04,Coordinator A,Pooled transfer,368595,MWK,"Maize flour, cooking oil, eggs, pocket money and transport"
+2025-05,Coordinator A,Pooled transfer,260094,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
 2025-05,Coordinator B,Pooled transfer,477330,MWK,
-2025-06,Coordinator A,Pooled transfer,243180,MWK,
-2025-06,Coordinator A,Pooled transfer,276990,MWK,
-2025-06,Coordinator B,Pooled transfer,139020,MWK,
-2025-07,Coordinator A,Pooled transfer,222153,MWK,
-2025-08,Coordinator A,Pooled transfer,362020,MWK,
-2025-08,Coordinator B,Pooled transfer,108330,MWK,
+2025-06,Coordinator A,Pooled transfer,243180,MWK,"Maize flour, cooking oil, eggs, pocket money and a graduation fee"
+2025-06,Coordinator A,Pooled transfer,276990,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2025-06,Coordinator B,Pooled transfer,139020,MWK,"Pocket money, exam fees and school books"
+2025-07,Coordinator A,Pooled transfer,222153,MWK,"Maize flour, cooking oil, eggs and pocket money"
+2025-08,Coordinator B,Pooled transfer,108330,MWK,"Transport, exam fees and school books"
+2025-08,Coordinator A,Pooled transfer,362020,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2025-09,Coordinator B,Pooled transfer,581900,MWK,"Pocket money, transport, school fees and boarding fees"
 2025-09,Coordinator B,Pooled transfer,135450,MWK,
-2025-09,Coordinator B,Pooled transfer,581900,MWK,
+2025-10,Coordinator B,Pooled transfer,451125,MWK,"Pocket money, school fees and school books"
 2025-10,Coordinator A,Monthly budget,260000,MWK,Sent via a stand-in when the usual route was unavailable
-2025-10,Coordinator B,Pooled transfer,451125,MWK,
-2025-12,Coordinator B,Pooled transfer,103114,MWK,
 2025-12,Coordinator B,Pooled transfer,251100,MWK,
-2025-12,Coordinator B,Pooled transfer,83990,MWK,
+2025-12,Coordinator B,Pooled transfer,103114,MWK,
 2025-12,Coordinator B,Pooled transfer,97228,MWK,
+2025-12,Coordinator B,Pooled transfer,83990,MWK,
 2026-01,Coordinator B,Pooled transfer,422170,MWK,
-2026-01,Coordinator B,Pooled transfer,443445,MWK,
 2026-01,Coordinator B,Pooled transfer,605690,MWK,
+2026-01,Coordinator B,Pooled transfer,443445,MWK,
 2026-02,Coordinator B,Pooled transfer,205860,MWK,

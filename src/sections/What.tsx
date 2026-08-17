@@ -2,10 +2,10 @@ import { MaskedLines, Plane, Reveal } from '../lib/motion'
 import { familiesSupportedNow } from '../data/ledger'
 
 const facts = [
-  ['Who it is for', `Orphans and families in need in Malawi, around ${familiesSupportedNow} of them at the moment. Some have been supported since the first year.`],
-  ['What it pays for', 'School fees and exam fees, maize flour and cooking oil and eggs, soap, uniforms, school books, transport, and medical care when someone falls ill.'],
-  ['How it has been funded', 'Privately, by one family, since the start. It has never run an appeal or held a fundraiser, and it is only now opening up to others who want to help.'],
-  ['Who runs it', 'Two coordinators in Malawi who buy, deliver and account for everything, and who send the receipts back.'],
+  ['Who we help', `Around ${familiesSupportedNow} families we support regularly, plus others who reach out when they are stuck. Someone needs school fees, or medicine, or food for the month, and we help where we can.`],
+  ['What it pays for', 'School fees and exam fees, maize flour, cooking oil, eggs, soap, uniforms, school books, transport, and medical care when someone falls ill.'],
+  ['How it is paid for', 'Out of our own pockets, the two of us, since 2022. We have never run an appeal or a fundraiser. We are only now letting other people help.'],
+  ['How it works', 'A budget comes to us from Malawi. We send the money over. The people on the ground collect it, buy everything on the list, and send back what they spent.'],
 ]
 
 export default function What() {
@@ -18,15 +18,14 @@ export default function What() {
       <p className="eyebrow">What this is</p>
       <MaskedLines
         as="h2"
-        text="A small, private, unglamorous arrangement that has not missed a month."
+        text="Two of us, helping where we can, and keeping a record of it."
         className="h2"
       />
 
-      <Reveal as="p" className="lead" >
-        There is no office and no staff. Money leaves a bank account in London, arrives in
-        Malawi the same day, and turns into flour, fees and shoes within the week. What
-        makes it unusual is not the scale. It is that all of it is written down and none of
-        it is hidden.
+      <Reveal as="p" className="lead">
+        We are not a charity and we do not have a name on a door. We started by helping one
+        child with school fees, and it grew from there. What is unusual is not how much we
+        give. It is that every kwacha is written down here, so anyone can check it.
       </Reveal>
 
       <dl className="facts">

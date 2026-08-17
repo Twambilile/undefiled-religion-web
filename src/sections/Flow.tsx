@@ -5,23 +5,23 @@ import { MaskedLines, Plane, useGsap } from '../lib/motion'
 const steps = [
   {
     n: '01',
-    t: 'Someone asks',
-    b: 'A message arrives from Malawi. A term has started, a fee is due, a cupboard is empty, someone is ill. It comes as a list, item by item, with prices.',
+    t: 'A budget comes in',
+    b: 'Someone in Malawi sends us the month’s needs as a list, item by item, with prices. A term of fees, a bag of flour, cooking oil, soap, a hospital bill.',
   },
   {
     n: '02',
-    t: 'The money is sent',
-    b: 'One transfer, from a bank account in London, usually the same week. It leaves in pounds and lands in kwacha, and the transfer gets a reference number.',
+    t: 'We send the money',
+    b: 'We send it over the same week, in kwacha. Usually the person can go and collect it as cash the same day.',
   },
   {
     n: '03',
-    t: 'It is collected and spent',
-    b: 'A coordinator collects the cash, buys what was on the list, pays the school directly where the school will take it, and delivers the rest.',
+    t: 'They buy everything',
+    b: 'They collect it, pay the school, buy what is on the list, and deliver it to the family. Nobody keeps a cut.',
   },
   {
     n: '04',
-    t: 'The receipt comes back',
-    b: 'Photographs of the goods, the school receipt, the change. That is what a row in the ledger is made of, and why the record can be published at all.',
+    t: 'They send it back to us',
+    b: 'Photos of the shopping, the school receipt, whatever is left over. That is what each line in the record is, and why we can publish it.',
   },
 ]
 
@@ -78,8 +78,8 @@ export default function Flow() {
       </div>
       <div className="grain" aria-hidden="true" />
 
-      <p className="eyebrow">How the money moves</p>
-      <MaskedLines as="h2" text="London to a kitchen table, in about a week." className="h2" />
+      <p className="eyebrow">How it works</p>
+      <MaskedLines as="h2" text="A budget in, the money out, the shopping done." className="h2" />
 
       <div className="flow__stage">
         <ol className="flow__track">

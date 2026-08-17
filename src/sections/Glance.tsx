@@ -93,17 +93,15 @@ export default function Glance() {
       </div>
 
       <Reveal as="p" className="dim glance__note">
-        Most of it goes out as a pooled transfer: one payment covering fees, flour, oil,
-        soap and whatever else that month's list held, for several households at once. It
-        is not split into categories here because it was never split at the bank, and
-        inventing a breakdown would be the opposite of the point.
+        Most of it goes out as one payment covering a whole month's list at once, fees,
+        flour, oil, soap and the rest, for several families together. We do not split
+        those into neat categories, because that is not how we send them.
       </Reveal>
 
       <Reveal as="p" className="dim glance__note">
-        Every transfer from {monthLabel(completeFrom)} onwards has a receipt behind it.
-        The entries before that were reconstructed from four years of messages and are
-        partial, so the real total for the early years is higher than the figure above.
-        Nothing has been estimated to fill the gap.
+        From {monthLabel(completeFrom)} onwards these are exact. The earlier figures we
+        pieced back together from years of messages, so the real total for the early days
+        is higher than what you see here. We have not guessed to fill the gap.
       </Reveal>
 
       <Reveal className="glance__cta">

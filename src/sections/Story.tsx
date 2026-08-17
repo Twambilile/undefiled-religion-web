@@ -4,28 +4,23 @@ import { familiesSupportedNow } from '../data/ledger'
 const beats = [
   {
     when: '10 October 2022',
-    what: "One boy's school fees, for one term.",
-    note: 'He was in Standard 7. He is not named here and will not be.',
+    what: 'We paid one boy’s school fees for a term.',
+    note: 'He was a Standard 7 student who was about to drop out. That was the whole plan, that one term.',
   },
   {
-    when: 'The following week',
-    what: 'A second child, then a third.',
-    note: 'There was nothing to join and no process to follow. Someone asked, and the fees were paid.',
+    when: 'The week after',
+    what: 'We were helping two more.',
+    note: 'Word got around that we would help, and more people asked. We kept saying yes.',
   },
   {
-    when: 'February 2023',
-    what: 'A WhatsApp group, which is still where the work happens.',
-    note: 'Budgets come in as lists with prices on them. Receipts and photographs go back the other way. That group is the reason there is a record to publish.',
-  },
-  {
-    when: 'July 2024',
-    what: 'Transfers started leaving a paper trail.',
-    note: 'Every payment from then on carries a reference number, which is what makes the second half of this ledger exact.',
+    when: 'From 2023',
+    what: 'It settled into a monthly rhythm.',
+    note: 'Budgets started coming to us every month. We would send the money, and everything on the list would get bought and delivered.',
   },
   {
     when: 'Now',
-    what: `Around ${familiesSupportedNow} families.`,
-    note: 'Some are supported every month. Some were helped once, because they asked once.',
+    what: `Around ${familiesSupportedNow} families, and others when they reach out.`,
+    note: 'Some we support every month. Others come to us once, because they are stuck once, and we help with that.',
   },
 ]
 
@@ -37,7 +32,7 @@ export default function Story() {
       </div>
 
       <p className="eyebrow">How it started</p>
-      <MaskedLines as="h2" text="With one term of school fees." className="h2" />
+      <MaskedLines as="h2" text="It started with one boy and one term." className="h2" />
 
       <div className="story__grid" style={{ marginTop: 'clamp(3rem, 8vh, 6rem)' }}>
         {beats.map((b) => (
