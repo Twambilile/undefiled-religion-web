@@ -3,9 +3,12 @@
 A family funded giving project in Malawi supporting orphans and families in need
 with school fees, food, supplies and clothing. Running since 10 October 2022.
 
-This site publishes the money. Every payment, what it was for, which month, back
-to the first one. There is no donate button and there never will be one on this
-version of the site.
+This site publishes the money. Every transfer, which month, back to the first one
+that was written down. There is no donate button and there never will be one on
+this version of the site.
+
+Two pages. `/` is the project: what it is, how it started, how the money actually
+moves, and the headline figures. `/ledger` is the record itself.
 
 ## What it is not
 
@@ -20,18 +23,37 @@ Everything on the page is derived from `data/ledger.csv`, a plain file a
 non-developer can edit in Excel, Numbers or Google Sheets. See
 [data/README.md](data/README.md) for the columns and the safeguarding rules.
 
-`data/ledger.meta.json` carries `"placeholder": true`. While that is true, the
-rows are fake, every amount is zero, and the site says so in a banner at the top
-of the page and again in the colophon. Set it to false in the same commit that
-brings in the real record.
+The record runs from February 2023, when the WhatsApp group was created, to the
+present. From July 2024 every row comes from a transfer receipt. Before that the
+rows were reconstructed from messages and are partial, which the site states on
+both pages rather than smoothing over: real payments were made in that period
+that are not in the file, and nothing has been estimated to fill the gap. The
+first months, from October 2022, predate the group and are not in the record at
+all.
 
 Nothing on the site is hand written from the data. Totals, monthly totals,
 category and year splits and the family count are all derived in
 `src/data/ledger.ts`, so the file and the page can never disagree.
 
+## Currency
+
+Kwacha is the currency of the site, because kwacha is what arrives. A few early
+entries were sent in pounds and are stored that way, with `currency` on the row.
+
+The pound view is a second reading of the same record, not a separate one. Each
+entry converts at the rate for its own year from `data/rates.json`, never at
+today's rate, because the kwacha lost more than half its value against the pound
+across this period and converting the lot at one rate would misstate the history
+badly. Those yearly rates are estimates and should be replaced with the rates
+actually received if they are ever to hand.
+
 ## Safeguarding
 
-Beneficiaries appear as initials or pseudonyms. No full names, no school names,
+Money reaches the families through two coordinators, and most transfers are
+pooled, covering several households at once, so the record is kept by transfer
+rather than by child and pooled rows are not split into invented categories.
+Nobody is named: the coordinators appear as Coordinator A and Coordinator B, and
+no beneficiary appears at all. No full names, no school names,
 no place beyond "Malawi", no photographs of children or of any identifiable
 person. The generated imagery is abstract on purpose: light, dust, cloth, paper,
 ink, a maize field at dusk. It stays that way.
