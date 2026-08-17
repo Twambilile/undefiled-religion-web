@@ -51,7 +51,8 @@ export default function Hero() {
       <div className="hero__foot">
         <p className="lead hero__lead" data-hero-fade>
           School fees, food, supplies and clothing for orphans and families in need in
-          Malawi. Funded by one family, and published down to the last transfer.
+          Malawi. Funded by one family for four years, published down to the last
+          transfer, and now opening up to others who want to help.
         </p>
 
         <p className="total" data-hero-fade>

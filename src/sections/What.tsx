@@ -4,7 +4,7 @@ import { familiesSupportedNow } from '../data/ledger'
 const facts = [
   ['Who it is for', `Orphans and families in need in Malawi, around ${familiesSupportedNow} of them at the moment. Some have been supported since the first year.`],
   ['What it pays for', 'School fees and exam fees, maize flour and cooking oil and eggs, soap, uniforms, school books, transport, and medical care when someone falls ill.'],
-  ['Who pays for it', 'Two salaries. It has never run an appeal, taken a donation, or held a fundraiser.'],
+  ['How it has been funded', 'Privately, by one family, since the start. It has never run an appeal or held a fundraiser, and it is only now opening up to others who want to help.'],
   ['Who runs it', 'Two coordinators in Malawi who buy, deliver and account for everything, and who send the receipts back.'],
 ]
 

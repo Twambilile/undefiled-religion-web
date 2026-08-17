@@ -3,6 +3,7 @@ import What from '../sections/What'
 import Story from '../sections/Story'
 import Flow from '../sections/Flow'
 import Glance from '../sections/Glance'
+import Covers from '../sections/Covers'
 import Verse from '../sections/Verse'
 import Close from '../sections/Close'
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Story />
       <Flow />
       <Glance />
+      <Covers />
       <Verse />
       <Close />
     </main>

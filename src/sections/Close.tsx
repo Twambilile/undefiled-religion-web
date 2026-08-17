@@ -13,13 +13,14 @@ export default function Close() {
       <div>
         <MaskedLines
           as="h2"
-          text="Nothing here is asking you for anything."
+          text="The record is the whole pitch."
           className="close__line"
         />
         <Reveal as="p" className="dim">
-          It is paid for out of two salaries and it does not take donations, so there is
-          no appeal and no target to help reach. The record is public because publishing
-          it is the only way anyone could check it.
+          For four years this was funded by one family and checked by no one. It is
+          opening up now, and the only honest way to ask anyone else to help is to show
+          them exactly where the money has gone first. That is what the rest of this
+          site is.
         </Reveal>
 
         <div className="colophon">
@@ -27,7 +28,7 @@ export default function Close() {
             Undefiled Religion. Malawi. Running for {monthsRunning} months and counting.
           </p>
           <p style={{ margin: 0 }}>
-            Not a registered charity. Not accepting donations. Funded by one family.
+            Not a registered charity. Funded by one family, and now opening up to others.
           </p>
           <p style={{ margin: 0 }}>
             Families appear as initials or pseudonyms. No names, no schools, no places.
