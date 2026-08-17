@@ -4,6 +4,7 @@ import Story from '../sections/Story'
 import Flow from '../sections/Flow'
 import Glance from '../sections/Glance'
 import Covers from '../sections/Covers'
+import Calculator from '../sections/Calculator'
 import Verse from '../sections/Verse'
 import Close from '../sections/Close'
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Flow />
       <Glance />
       <Covers />
+      <Calculator />
       <Verse />
       <Close />
     </main>
