@@ -1,0 +1,8 @@
+{
+  "placeholder": true,
+  "currency": "GBP",
+  "startDate": "2022-10-10",
+  "familiesSupportedNow": 15,
+  "lastUpdated": "",
+  "_readme": "Set placeholder to false ONLY when data/ledger.csv contains the real record. While placeholder is true the site shows a visible notice on every figure and no number is presented as fact. familiesSupportedNow is the current caseload, stated separately from the ledger because not every family appears in every month."
+}

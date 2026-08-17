@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700&display=swap');
+
+:root {
+  /* surfaces */
+  --paper: #f2ece2;
+  --paper-2: #e9e1d3;
+  --dark: #0e0b08;
+  --dark-2: #171109;
+
+  /* ink on paper */
+  --ink: #14100c;
+  --ink-2: #4a4137;
+  --ink-line: rgba(20, 16, 12, 0.16);
+  --ochre-ink: #8a4310;
+
+  /* light on dark */
+  --light: #f4efe6;
+  --light-2: #b7ab99;
+  --light-line: rgba(244, 239, 230, 0.18);
+  --ochre: #e8a24a;
+
+  /* live, set per surface */
+  --bg: var(--dark);
+  --fg: var(--light);
+  --fg-2: var(--light-2);
+  --line: var(--light-line);
+  --accent: var(--ochre);
+
+  --serif: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --mono: ui-monospace, 'SF Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;
+
+  --gutter: clamp(1.25rem, 5vw, 6rem);
+  --measure: 34rem;
+
+  --t-fast: 0.16s;
+  --t-base: 0.3s;
+}
+
+.surface--dark {
+  --bg: var(--dark);
+  --fg: var(--light);
+  --fg-2: var(--light-2);
+  --line: var(--light-line);
+  --accent: var(--ochre);
+}
+
+.surface--paper {
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --fg-2: var(--ink-2);
+  --line: var(--ink-line);
+  --accent: var(--ochre-ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--dark);
+  color: var(--light);
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1.1em;
+  max-width: var(--measure);
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--dark);
+}
+
+/* ------------------------------------------------------------------ layout */
+
+.section {
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+  padding: clamp(6rem, 14vh, 12rem) var(--gutter);
+  isolation: isolate;
+}
+
+.section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  margin: 0 0 1.6rem;
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
+
+.lead {
+  font-size: clamp(1.15rem, 1rem + 0.8vw, 1.6rem);
+  line-height: 1.45;
+  color: var(--fg);
+}
+
+.dim {
+  color: var(--fg-2);
+}
+
+.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--light);
+  color: var(--dark);
+  padding: 0.7rem 1rem;
+  z-index: 50;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* masked word reveal */
+.m-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* the mask must clear ascenders and descenders or it crops the type */
+  padding: 0.12em 0 0.2em;
+  margin: -0.12em 0 -0.2em;
+}
+.m-word__in {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ planes */
+
+.planes {
+  position: absolute;
+  inset: -20% 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.plane {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+/* film grain, drawn once as an SVG tile */
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+
+/* ------------------------------------------------------------------- notice */
+
+.notice {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark);
+  background: var(--ochre);
+  padding: 0.65rem var(--gutter);
+  text-align: center;
+  max-width: none;
+  margin: 0;
+  position: relative;
+  z-index: 30;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
