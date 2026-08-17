@@ -83,8 +83,15 @@
     radial-gradient(120% 80% at 70% 12%, rgba(232, 162, 74, 0.22), transparent 62%),
     radial-gradient(90% 60% at 12% 82%, rgba(120, 62, 22, 0.28), transparent 66%);
 }
+/* the legibility floor: everything the type sits on resolves to near black */
 .wash--earth {
-  background: linear-gradient(180deg, transparent 42%, rgba(23, 17, 9, 0.9) 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 26%,
+    rgba(14, 11, 8, 0.72) 52%,
+    rgba(14, 11, 8, 0.94) 78%,
+    #0e0b08 100%
+  );
 }
 
 .h2 {

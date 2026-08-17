@@ -5,8 +5,9 @@ export default function Close() {
   return (
     <section className="section surface--dark close">
       <div className="planes">
-        <Plane speed={0.22} className="plane" style={{ backgroundImage: 'var(--img-far)' }} />
-        <Plane speed={0.7} className="plane wash wash--earth" />
+        <Plane speed={0.12} src="/planes/sky.webp" className="plane plane--sky" scale={1.1} />
+        <Plane speed={0.5} src="/planes/maize.webp" className="plane plane--maize" scale={1.05} />
+        <Plane speed={0.75} className="plane wash wash--earth" />
       </div>
 
       <div>

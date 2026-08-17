@@ -202,17 +202,45 @@ export function Counter({
 export function Plane({
   speed = 0.2,
   scale = 1,
+  src,
   className,
   children,
   style,
 }: {
   speed?: number
   scale?: number
+  /** Loaded only once the section is near the viewport, for slow connections. */
+  src?: string
   className?: string
   children?: ReactNode
   style?: React.CSSProperties
 }) {
   const ref = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !src) return
+    const target = el.parentElement ?? el
+    const load = () => {
+      el.style.backgroundImage = `url(${src})`
+    }
+    if (!('IntersectionObserver' in window)) {
+      load()
+      return
+    }
+    const io = new IntersectionObserver(
+      (es) => {
+        if (es.some((e) => e.isIntersecting)) {
+          load()
+          io.disconnect()
+        }
+      },
+      { rootMargin: '120% 0px' },
+    )
+    io.observe(target)
+    return () => io.disconnect()
+  }, [src])
+
   useLayoutEffect(() => {
     const el = ref.current
     if (!el || motionOff() || lightMotion()) return

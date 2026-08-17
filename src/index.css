@@ -194,6 +194,50 @@ a {
   will-change: transform;
 }
 
+/* art direction per plane: every one of these sits behind live text, so each is
+   pushed down in contrast until the type wins */
+
+.plane--sky {
+  opacity: 0.5;
+  background-position: center 30%;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.35) 62%, transparent 92%);
+  mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.35) 62%, transparent 92%);
+}
+
+.plane--dust {
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  background-position: 30% 20%;
+  -webkit-mask-image: radial-gradient(58% 46% at 34% 30%, #000 6%, transparent 74%);
+  mask-image: radial-gradient(58% 46% at 34% 30%, #000 6%, transparent 74%);
+}
+
+.plane--cloth {
+  opacity: 0.17;
+  mix-blend-mode: soft-light;
+  filter: contrast(1.15);
+}
+
+.plane--paper {
+  opacity: 0.75;
+  mix-blend-mode: multiply;
+}
+
+.plane--ink {
+  opacity: 0.34;
+  filter: invert(1) brightness(0.62) sepia(0.4);
+  background-position: 62% center;
+  -webkit-mask-image: linear-gradient(90deg, transparent 8%, #000 55%);
+  mask-image: linear-gradient(90deg, transparent 8%, #000 55%);
+}
+
+.plane--maize {
+  opacity: 0.55;
+  background-position: center bottom;
+  -webkit-mask-image: linear-gradient(180deg, transparent 22%, #000 78%);
+  mask-image: linear-gradient(180deg, transparent 22%, #000 78%);
+}
+
 /* film grain, drawn once as an SVG tile */
 .grain {
   position: absolute;

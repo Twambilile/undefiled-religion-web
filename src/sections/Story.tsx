@@ -31,11 +31,7 @@ export default function Story() {
   return (
     <section className="section surface--paper story">
       <div className="planes">
-        <Plane
-          speed={0.18}
-          className="plane"
-          style={{ backgroundImage: 'var(--img-paper)', opacity: 0.5 }}
-        />
+        <Plane speed={0.1} src="/planes/paper.webp" className="plane plane--paper" scale={1.1} />
       </div>
 
       <p className="eyebrow">How it started</p>

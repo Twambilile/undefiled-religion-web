@@ -74,7 +74,7 @@ export default function Ledger() {
   return (
     <section className="section surface--dark ledger" ref={ref}>
       <div className="planes">
-        <Plane speed={0.12} className="plane" style={{ backgroundImage: 'var(--img-cloth)' }} />
+        <Plane speed={0.08} src="/planes/cloth.webp" className="plane plane--cloth" scale={1.1} />
       </div>
       <div className="grain" aria-hidden="true" />
 

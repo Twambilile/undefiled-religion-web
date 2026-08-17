@@ -5,7 +5,7 @@ export default function Verse() {
     <section className="section surface--dark verse">
       <div className="planes">
         <Plane speed={0.1} className="plane wash wash--sky" />
-        <Plane speed={0.4} className="plane" style={{ backgroundImage: 'var(--img-ink)' }} />
+        <Plane speed={0.45} src="/planes/ink.webp" className="plane plane--ink" scale={1.2} />
       </div>
       <div className="grain" aria-hidden="true" />
 

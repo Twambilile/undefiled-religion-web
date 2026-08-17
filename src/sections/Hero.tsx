@@ -30,10 +30,11 @@ export default function Hero() {
   return (
     <section className="section surface--dark hero" ref={ref}>
       <div className="planes">
-        <Plane speed={0.06} className="plane wash wash--sky" />
-        <Plane speed={0.28} className="plane" style={{ backgroundImage: 'var(--img-far)' }} />
-        <Plane speed={0.55} className="plane" style={{ backgroundImage: 'var(--img-near)' }} />
-        <Plane speed={0.85} className="plane wash wash--earth" />
+        {/* four planes, four rates: sky, horizon, dust, ground */}
+        <Plane speed={0.05} src="/planes/sky.webp" className="plane plane--sky" scale={1.12} />
+        <Plane speed={0.16} className="plane wash wash--sky" />
+        <Plane speed={0.42} src="/planes/dust.webp" className="plane plane--dust" scale={1.18} />
+        <Plane speed={0.8} className="plane wash wash--earth" />
       </div>
       <div className="grain" aria-hidden="true" />
 
