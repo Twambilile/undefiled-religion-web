@@ -53,9 +53,9 @@ export default function Ledger() {
     q('.year__rail').forEach((rail) => {
       gsap.fromTo(
         rail,
-        { yPercent: -30 },
+        { y: -90 },
         {
-          yPercent: 30,
+          y: 90,
           ease: 'none',
           scrollTrigger: {
             trigger: rail.parentElement!,
@@ -80,7 +80,7 @@ export default function Ledger() {
 
       <div className="ledger__head">
         <p className="eyebrow">The record</p>
-        <MaskedLines as="h2" text="Every payment, since the first one." className="beat__what" />
+        <MaskedLines as="h2" text="Every payment, since the first one." className="h2" />
         <p className="dim" style={{ marginTop: '1rem' }}>
           Four years, in order. Families appear as initials only. Nothing here identifies a
           child.
@@ -116,6 +116,7 @@ export default function Ledger() {
                         <span className="row__cat">{e.category}</span>
                         {e.note ? <span className="row__note">{e.note}</span> : null}
                       </span>
+                      <span className="row__leader" aria-hidden="true" />
                       <span className="row__amount num">{money(e.amount)}</span>
                     </li>
                   ))}

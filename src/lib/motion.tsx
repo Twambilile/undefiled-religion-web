@@ -5,6 +5,12 @@ import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger)
 
+if (import.meta.env.DEV) {
+  // verification handles: the preview pane suspends rAF, so triggers need forcing
+  ;(window as unknown as Record<string, unknown>).__gsap = gsap
+  ;(window as unknown as Record<string, unknown>).__ST = ScrollTrigger
+}
+
 export const reduced = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches

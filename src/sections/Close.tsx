@@ -32,11 +32,8 @@ export default function Close() {
             Families appear as initials or pseudonyms. No names, no schools, no places.
           </p>
           <p style={{ margin: 0 }}>
-            The record lives in{' '}
-            <a href="https://github.com/" rel="noreferrer">
-              one file in this repository
-            </a>
-            , so every change to it is dated and public.
+            The record lives in one plain file in this site's repository, so every change
+            to it is dated and public.
           </p>
           {isPlaceholder ? (
             <p style={{ margin: 0, color: 'var(--ochre)' }}>

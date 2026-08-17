@@ -27,7 +27,7 @@ export default function Breakdown() {
   return (
     <section className="section surface--paper" ref={ref}>
       <p className="eyebrow">Where it went</p>
-      <MaskedLines as="h2" text="By category, and by year." className="beat__what" />
+      <MaskedLines as="h2" text="By category, and by year." className="h2" />
 
       <ul className="bars" style={{ marginTop: 'clamp(3rem, 8vh, 5rem)' }}>
         {byCategory.map((c) => (
@@ -40,7 +40,12 @@ export default function Breakdown() {
               </span>
             </span>
             <span className="bar__track">
-              <span className="bar__fill" data-share={c.share} />
+              {/* the true value is in the markup; the script only animates to it */}
+              <span
+                className="bar__fill"
+                data-share={c.share}
+                style={{ transform: `scaleX(${c.share})` }}
+              />
             </span>
             <span className="dim num" style={{ fontSize: '0.8rem' }}>
               {pct(c.share)} of everything given

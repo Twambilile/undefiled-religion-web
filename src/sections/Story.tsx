@@ -39,7 +39,7 @@ export default function Story() {
       </div>
 
       <p className="eyebrow">How it started</p>
-      <MaskedLines as="h2" text="One decision, kept." className="beat__what" />
+      <MaskedLines as="h2" text="One decision, kept." className="h2" />
 
       <div className="story__grid" style={{ marginTop: 'clamp(3rem, 8vh, 6rem)' }}>
         {beats.map((b) => (

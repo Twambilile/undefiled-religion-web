@@ -87,6 +87,13 @@
   background: linear-gradient(180deg, transparent 42%, rgba(23, 17, 9, 0.9) 100%);
 }
 
+.h2 {
+  font-size: clamp(1.7rem, 1.2rem + 2.8vw, 3.6rem);
+  line-height: 1.06;
+  margin: 0 0 0.35em;
+  max-width: 18em;
+}
+
 /* -------------------------------------------------------------------- story */
 
 .story__grid {
@@ -146,15 +153,17 @@
 .ledger__running {
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 4;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  justify-content: space-between;
   gap: 0.5rem 1.4rem;
-  padding: 0.9rem 0;
-  background: linear-gradient(180deg, var(--bg) 62%, transparent);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 2rem;
+  margin: 0 calc(var(--gutter) * -1) 2rem;
+  padding: 0.85rem var(--gutter) 0.8rem;
+  max-width: none;
+  background: var(--bg);
+  box-shadow: 0 1px 0 var(--line), 0 18px 26px -18px var(--bg);
 }
 
 .ledger__running-label {
@@ -176,13 +185,18 @@
 }
 
 .year__rail {
-  font-size: clamp(4rem, 16vw, 14rem);
-  line-height: 0.8;
-  color: var(--fg);
-  opacity: 0.08;
-  position: absolute;
-  right: 0;
-  top: -0.1em;
+  font-size: clamp(7rem, 30vw, 26rem);
+  line-height: 0.72;
+  font-family: var(--serif);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+  color: var(--accent);
+  opacity: 0.13;
+  position: sticky;
+  top: 42vh;
+  display: block;
+  height: 0;
+  text-align: right;
   pointer-events: none;
   user-select: none;
   z-index: 0;
@@ -228,11 +242,18 @@
 
 .row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, auto) minmax(2rem, 1fr) auto;
   align-items: baseline;
   gap: 0.4rem 1rem;
   padding: 0.55rem 0;
   border-bottom: 1px solid var(--line);
+}
+
+/* the leader rule of a printed statement, carrying the eye to the figure */
+.row__leader {
+  border-bottom: 1px dotted var(--line);
+  transform: translateY(-0.28em);
+  min-width: 2rem;
 }
 
 .row__what {
