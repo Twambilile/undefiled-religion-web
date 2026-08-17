@@ -295,6 +295,41 @@
   white-space: nowrap;
 }
 
+.ledger__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+  transform-origin: left center;
+  flex: none;
+}
+
+.coda {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  border-top: 1px solid var(--line);
+  padding-top: clamp(2rem, 6vh, 4rem);
+}
+
+.coda__line {
+  font-size: clamp(1.25rem, 1rem + 1.4vw, 2rem);
+  margin: 0;
+  max-width: 24em;
+  color: var(--fg-2);
+}
+
+.coda__line--big {
+  font-size: clamp(3rem, 11vw, 9rem);
+  line-height: 0.95;
+  color: var(--accent);
+  margin-bottom: 0.2em;
+}
+
 /* ---------------------------------------------------------------- breakdown */
 
 .bars {

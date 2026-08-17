@@ -213,9 +213,9 @@ a {
 }
 
 .plane--cloth {
-  opacity: 0.17;
+  opacity: 0.1;
   mix-blend-mode: soft-light;
-  filter: contrast(1.15);
+  filter: blur(1.5px) contrast(1.1);
 }
 
 .plane--paper {

@@ -94,7 +94,7 @@ export function Reveal({
         duration: 0.9,
         delay,
         ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%' },
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' },
       })
     }, el)
     return () => ctx.revert()
@@ -137,7 +137,7 @@ export function MaskedLines({
         duration: 1.05,
         ease: 'power4.out',
         stagger,
-        scrollTrigger: { trigger: el, start },
+        scrollTrigger: { trigger: el, start, toggleActions: 'play none none reverse' },
       })
     }, el)
     return () => ctx.revert()
@@ -182,7 +182,7 @@ export function Counter({
         onUpdate: () => {
           el.textContent = format(o.n)
         },
-        scrollTrigger: { trigger: el, start: 'top 92%' },
+        scrollTrigger: { trigger: el, start: 'top 92%', toggleActions: 'play none none reverse' },
       })
     }, el)
     return () => ctx.revert()
