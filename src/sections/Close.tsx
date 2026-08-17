@@ -13,13 +13,13 @@ export default function Close() {
       <div>
         <MaskedLines
           as="h2"
-          text="There is nothing to click here."
+          text="Nothing here is asking you for anything."
           className="close__line"
         />
         <Reveal as="p" className="dim">
-          No appeal, no total to help reach, no button. This is paid for privately and it
-          is not asking for money. The record is here because a record kept privately is
-          only a promise to yourself.
+          It is paid for out of two salaries and it does not take donations, so there is
+          no appeal and no target to help reach. The record is public because publishing
+          it is the only way anyone could check it.
         </Reveal>
 
         <div className="colophon">

@@ -21,10 +21,10 @@ export default function Verse() {
           <cite className="verse__cite">James 1:27, King James Version</cite>
         </blockquote>
         <Reveal as="p" className="verse__gloss">
-          Undefiled means unmixed. Not religion performed, and not religion announced. The
-          test in the verse is whether anyone was actually visited, and whether anything
-          actually changed for them. That is why this site is a list of payments rather
-          than a list of intentions.
+          Undefiled means unmixed. The verse sets a fairly ordinary test: whether anyone
+          was actually visited, and whether anything actually changed for them. School
+          fees paid, flour delivered, a hospital bill covered. The rest of this site is
+          just the arithmetic of that.
         </Reveal>
       </div>
     </section>

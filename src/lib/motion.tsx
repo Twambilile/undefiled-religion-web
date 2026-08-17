@@ -31,8 +31,38 @@ export const lightMotion = () =>
   (window.matchMedia('(max-width: 700px)').matches ||
     (navigator.hardwareConcurrency ?? 8) <= 4)
 
+/**
+ * Type reveals are CSS transitions, not tweens, and this class is what arms
+ * them. It is added by script, so a page with no script running never hides a
+ * word in the first place. A transition also finishes on its own clock: if the
+ * frame loop stalls, which it does in a background tab, on a throttled phone,
+ * or in an inactive preview pane, the text still arrives. A frame-driven tween
+ * freezes mid-flight instead and leaves headings sliced in half.
+ */
+function armCss() {
+  document.documentElement.classList.add('js-anim')
+}
+
+/** Anything still part way through when the page is hidden is snapped to done. */
+function watchdog() {
+  const settle = () => {
+    if (document.visibilityState !== 'hidden') return
+    document.querySelectorAll('.js-reveal').forEach((el) => el.classList.add('is-in'))
+  }
+  document.addEventListener('visibilitychange', settle)
+}
+
+let ready = false
+function ensureReady() {
+  if (ready || typeof document === 'undefined' || motionOff()) return
+  ready = true
+  armCss()
+  watchdog()
+}
+
 export function useLenis() {
   useEffect(() => {
+    ensureReady()
     if (motionOff() || flag('nosmooth')) return
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true })
     lenis.on('scroll', ScrollTrigger.update)
@@ -63,46 +93,52 @@ export function useGsap(
   return ref
 }
 
-/* ---------------------------------------------------------------- primitives */
-
-/**
- * Content is always rendered plainly. The hidden state is written by JS, so a
- * failed or skipped script leaves a readable page rather than a blank one.
- */
-export function Reveal({
-  children,
-  y = 28,
-  delay = 0,
-  as: Tag = 'div',
-  className,
-}: {
-  children: ReactNode
-  y?: number
-  delay?: number
-  as?: 'div' | 'p' | 'li' | 'section' | 'figure'
-  className?: string
-}) {
-  const ref = useRef<HTMLElement | null>(null)
+/** Adds `is-in` when the element arrives, takes it off on the way back up. */
+function useInView(
+  ref: React.RefObject<HTMLElement | null>,
+  start = 'top 88%',
+) {
   useLayoutEffect(() => {
     const el = ref.current
     if (!el || motionOff()) return
-    const ctx = gsap.context(() => {
-      gsap.set(el, { opacity: 0, y })
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        delay,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' },
-      })
-    }, el)
-    return () => ctx.revert()
+    ensureReady()
+    el.classList.add('js-reveal')
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start,
+      onEnter: () => el.classList.add('is-in'),
+      onLeaveBack: () => el.classList.remove('is-in'),
+    })
+    return () => {
+      st.kill()
+      el.classList.remove('js-reveal', 'is-in')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+}
+
+/* ---------------------------------------------------------------- primitives */
+
+/**
+ * Content is always rendered plainly. The hidden state comes from a class the
+ * script adds, so a failed or skipped script leaves a readable page.
+ */
+export function Reveal({
+  children,
+  as: Tag = 'div',
+  className,
+  start,
+}: {
+  children: ReactNode
+  as?: 'div' | 'p' | 'li' | 'section' | 'figure'
+  className?: string
+  start?: string
+}) {
+  const ref = useRef<HTMLElement | null>(null)
+  useInView(ref, start)
   return (
     // @ts-expect-error polymorphic tag
-    <Tag ref={ref} className={className}>
+    <Tag ref={ref} className={['reveal', className].filter(Boolean).join(' ')}>
       {children}
     </Tag>
   )
@@ -116,7 +152,7 @@ export function MaskedLines({
   text,
   as: Tag = 'h2',
   className,
-  stagger = 0.06,
+  stagger = 0.055,
   start = 'top 85%',
 }: {
   text: string
@@ -126,31 +162,20 @@ export function MaskedLines({
   start?: string
 }) {
   const ref = useRef<HTMLElement | null>(null)
-  useLayoutEffect(() => {
-    const el = ref.current
-    if (!el || motionOff()) return
-    const inners = el.querySelectorAll('.m-word__in')
-    const ctx = gsap.context(() => {
-      gsap.set(inners, { yPercent: 108 })
-      gsap.to(inners, {
-        yPercent: 0,
-        duration: 1.05,
-        ease: 'power4.out',
-        stagger,
-        scrollTrigger: { trigger: el, start, toggleActions: 'play none none reverse' },
-      })
-    }, el)
-    return () => ctx.revert()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useInView(ref, start)
   const words = text.split(' ')
   return (
     // @ts-expect-error polymorphic tag
-    <Tag ref={ref} className={className} aria-label={text}>
+    <Tag ref={ref} className={['masked', className].filter(Boolean).join(' ')} aria-label={text}>
       {words.map((w, i) => (
         <span key={i} aria-hidden="true">
           <span className="m-word">
-            <span className="m-word__in">{w}</span>
+            <span
+              className="m-word__in"
+              style={{ transitionDelay: `${(i * stagger).toFixed(3)}s` }}
+            >
+              {w}
+            </span>
           </span>
           {i < words.length - 1 ? ' ' : ''}
         </span>
@@ -159,7 +184,11 @@ export function MaskedLines({
   )
 }
 
-/** Counts to `value` when it enters. Renders the final value in the DOM first. */
+/**
+ * Counts to `value` when it enters. The final value is in the DOM from the
+ * start, and if the frame loop stops the number is put back to the real one
+ * rather than left frozen part way there.
+ */
 export function Counter({
   value,
   format,
@@ -173,21 +202,36 @@ export function Counter({
   useLayoutEffect(() => {
     const el = ref.current
     if (!el || motionOff()) return
+    const final = format(value)
     const ctx = gsap.context(() => {
       const o = { n: 0 }
-      gsap.to(o, {
+      const tween = gsap.to(o, {
         n: value,
         duration: 1.9,
         ease: 'power2.out',
         onUpdate: () => {
           el.textContent = format(o.n)
         },
-        scrollTrigger: { trigger: el, start: 'top 92%', toggleActions: 'play none none reverse' },
+        onComplete: () => {
+          el.textContent = final
+        },
+        scrollTrigger: { trigger: el, start: 'top 92%' },
       })
+      const settle = () => {
+        if (document.visibilityState === 'hidden') {
+          tween.progress(1)
+          el.textContent = final
+        }
+      }
+      document.addEventListener('visibilitychange', settle)
+      return () => document.removeEventListener('visibilitychange', settle)
     }, el)
-    return () => ctx.revert()
+    return () => {
+      ctx.revert()
+      el.textContent = final
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
+  }, [value, format])
   return (
     <span ref={ref} className={className}>
       {format(value)}
@@ -197,7 +241,8 @@ export function Counter({
 
 /**
  * One depth plane. `speed` is how far it travels across its own scroll span,
- * as a fraction of the viewport height. Negative moves against the scroll.
+ * as a fraction of the viewport height. A stalled scrub only leaves a plane
+ * slightly off its mark, which costs nothing, so this one stays a tween.
  */
 export function Plane({
   speed = 0.2,

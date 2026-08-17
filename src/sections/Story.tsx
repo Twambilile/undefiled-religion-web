@@ -4,26 +4,28 @@ import { familiesSupportedNow } from '../data/ledger'
 const beats = [
   {
     when: '10 October 2022',
-    what: 'It began with one child, and the school fees he could not pay.',
-    note: 'A student in Standard 7. He is not named here, and never will be.',
+    what: "One boy's school fees, for one term.",
+    note: 'He was in Standard 7. He is not named here and will not be.',
   },
   {
-    when: 'A week later',
-    what: 'Two.',
-    note: 'Nothing was set up in between. Someone asked, and the answer was yes.',
+    when: 'The following week',
+    what: 'A second child, then a third.',
+    note: 'There was nothing to join and no process to follow. Someone asked, and the fees were paid.',
   },
   {
-    when: 'Since then',
-    what:
-      'No organisation, no name on a door, no launch. A commitment held month after month, out of two salaries.',
-    note:
-      'It is not a registered charity and it does not ask anyone for money. It is paid for privately.',
+    when: 'February 2023',
+    what: 'A WhatsApp group, which is still where the work happens.',
+    note: 'Budgets come in as lists with prices on them. Receipts and photographs go back the other way. That group is the reason there is a record to publish.',
   },
   {
-    when: 'Today',
-    what: `Around ${familiesSupportedNow} families, and a record of every payment made.`,
-    note:
-      'Some support runs every month. Some is one payment, once, because a person asked for help.',
+    when: 'July 2024',
+    what: 'Transfers started leaving a paper trail.',
+    note: 'Every payment from then on carries a reference number, which is what makes the second half of this ledger exact.',
+  },
+  {
+    when: 'Now',
+    what: `Around ${familiesSupportedNow} families.`,
+    note: 'Some are supported every month. Some were helped once, because they asked once.',
   },
 ]
 
@@ -35,7 +37,7 @@ export default function Story() {
       </div>
 
       <p className="eyebrow">How it started</p>
-      <MaskedLines as="h2" text="One decision, kept." className="h2" />
+      <MaskedLines as="h2" text="With one term of school fees." className="h2" />
 
       <div className="story__grid" style={{ marginTop: 'clamp(3rem, 8vh, 6rem)' }}>
         {beats.map((b) => (

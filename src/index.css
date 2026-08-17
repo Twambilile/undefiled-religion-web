@@ -162,7 +162,10 @@ a {
   top: 1rem;
 }
 
-/* masked word reveal */
+/* Masked word reveal.
+   Everything below is inert until `.js-anim` is on the root, which only script
+   adds. No script, no hidden text. The motion is a transition rather than a
+   tween so it finishes on the clock even if the frame loop stalls. */
 .m-word {
   display: inline-block;
   overflow: hidden;
@@ -171,16 +174,42 @@ a {
   padding: 0.32em 0 0.42em;
   margin: -0.32em 0 -0.42em;
 }
+
 .m-word__in {
   display: inline-block;
-  will-change: transform;
+}
+
+.js-anim .masked.js-reveal .m-word__in {
+  transform: translateY(112%);
+  transition: transform 0.95s cubic-bezier(0.16, 0.84, 0.3, 1);
+}
+
+.js-anim .masked.js-reveal.is-in .m-word__in {
+  transform: none;
+}
+
+.js-anim .reveal.js-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.16, 0.84, 0.3, 1);
+}
+
+.js-anim .reveal.js-reveal.is-in {
+  opacity: 1;
+  transform: none;
 }
 
 /* ------------------------------------------------------------------ planes */
 
+/* The plane box is exactly its section and clips its contents. It used to sit
+   20% proud of the section to give the parallax room, which meant the paper
+   plate of one section painted a hard edged band over the section above it.
+   The travel room now lives on the planes themselves, inside the clip. */
 .planes {
   position: absolute;
-  inset: -20% 0;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
@@ -188,7 +217,7 @@ a {
 
 .plane {
   position: absolute;
-  inset: 0;
+  inset: -18% 0;
   background-size: cover;
   background-position: center;
   will-change: transform;
