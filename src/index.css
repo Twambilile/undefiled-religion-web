@@ -34,6 +34,32 @@
 
   --t-fast: 0.16s;
   --t-base: 0.3s;
+
+  /* liquid glass, a dark pill that reads on both the paper and the dark
+     surfaces, so the floating chrome stays consistent in either theme */
+  --glass-bg: rgba(16, 12, 8, 0.82);
+  --glass-bg-thin: rgba(16, 12, 8, 0.44);
+  --glass-brd: rgba(244, 239, 230, 0.16);
+  --glass-hi: rgba(255, 255, 255, 0.24);
+}
+
+/* Dark mode flips the paper surfaces to a warm near-black. The already-dark
+   surfaces are unchanged, so the whole site goes dark together. */
+:root[data-theme='dark'] {
+  --paper: #14100b;
+  --paper-2: #1b150e;
+  --ink: #f2ede3;
+  --ink-2: #b0a48f;
+  --ink-line: rgba(242, 237, 227, 0.15);
+  --ochre-ink: #e8a24a;
+}
+
+:root[data-theme='dark'] body {
+  background: #0b0906;
+}
+
+html {
+  scroll-padding-top: 5.5rem;
 }
 
 .surface--dark {

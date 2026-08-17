@@ -20,7 +20,7 @@ const covers = [
 export default function Covers() {
   const { view } = useCurrency()
   return (
-    <section className="section surface--dark covers">
+    <section className="section surface--dark covers" id="give">
       <div className="planes">
         <Plane speed={0.1} src="/planes/maize.webp" className="plane plane--maize" scale={1.08} />
         <Plane speed={0.5} className="plane wash wash--earth" />

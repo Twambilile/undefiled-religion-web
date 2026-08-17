@@ -19,7 +19,7 @@ export default function Glance() {
   const top = byCategory.slice(0, 4)
 
   return (
-    <section className="section surface--paper">
+    <section className="section surface--paper" id="figures">
       <p className="eyebrow">The figures</p>
       <MaskedLines as="h2" text="Four years, in four numbers." className="h2" />
 

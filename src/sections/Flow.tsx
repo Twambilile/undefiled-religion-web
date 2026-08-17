@@ -72,7 +72,7 @@ export default function Flow() {
   }, ref as React.RefObject<HTMLElement>)
 
   return (
-    <section className="section surface--dark flow" ref={ref}>
+    <section className="section surface--dark flow" id="how" ref={ref}>
       <div className="planes">
         <Plane speed={0.08} src="/planes/cloth.webp" className="plane plane--cloth" scale={1.1} />
       </div>
