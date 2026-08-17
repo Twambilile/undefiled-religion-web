@@ -1,8 +1,8 @@
 {
-  "placeholder": true,
-  "currency": "GBP",
+  "placeholder": false,
   "startDate": "2022-10-10",
   "familiesSupportedNow": 15,
-  "lastUpdated": "",
-  "_readme": "Set placeholder to false ONLY when data/ledger.csv contains the real record. While placeholder is true the site shows a visible notice on every figure and no number is presented as fact. familiesSupportedNow is the current caseload, stated separately from the ledger because not every family appears in every month."
+  "completeFrom": "2024-07",
+  "lastUpdated": "2026-08-17",
+  "_readme": "placeholder: set true only if the rows in ledger.csv are stand-ins, which turns on a banner saying so. completeFrom is the month from which every transfer has a receipt behind it; anything before that was reconstructed from messages and is partial, which the site states on the page. familiesSupportedNow is the current caseload, stated separately from the ledger because most transfers are pooled and serve several families at once."
 }

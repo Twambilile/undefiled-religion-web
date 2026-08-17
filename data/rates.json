@@ -1,0 +1,11 @@
+{
+  "_readme": "Kwacha per pound, one figure per year, used only to show a single combined total and to offer the pound view. These are ESTIMATES and the site says so wherever a converted figure appears. Replace them with the rates actually received if you have them. Entries are converted at the rate for their own year, never at today's rate, because the kwacha moved a long way over this period.",
+  "base": "MWK",
+  "gbpToMwk": {
+    "2022": 1030,
+    "2023": 1300,
+    "2024": 2250,
+    "2025": 2450,
+    "2026": 2600
+  }
+}

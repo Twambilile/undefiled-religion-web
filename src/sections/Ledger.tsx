@@ -2,31 +2,40 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { MaskedLines, Plane, useGsap } from '../lib/motion'
+import { useCurrency } from '../lib/currency'
 import {
   byMonth,
+  completeFrom,
   entries,
-  familiesInRecord,
+  entryMoney,
+  familiesSupportedNow,
   isPlaceholder,
-  money,
+  show,
   monthLabel,
   monthsRunning,
   total,
+  totalGbp,
 } from '../data/ledger'
 
-/** Cumulative total at the end of each month, in scroll order. */
+/** Cumulative totals at the end of each month, in scroll order, in both currencies. */
 const cumulative = (() => {
-  let run = 0
-  return byMonth.map((m) => (run += m.total))
+  let mwk = 0
+  let gbp = 0
+  return byMonth.map((m) => {
+    mwk += m.total
+    gbp += m.totalGbp
+    return { mwk, gbp }
+  })
 })()
 
 export default function Ledger() {
   const ref = useRef<HTMLElement | null>(null)
   const runningRef = useRef<HTMLSpanElement | null>(null)
+  const { view } = useCurrency()
 
   useGsap(({ el }) => {
     const q = gsap.utils.selector(el)
 
-    // rows arrive as their month enters, and leave again on the way back up
     q('.month').forEach((month) => {
       const rows = month.querySelectorAll('.row, .month__when')
       gsap.set(rows, { opacity: 0, y: 16 })
@@ -49,18 +58,21 @@ export default function Ledger() {
           start: 'top 55%',
           end: 'bottom 55%',
           onToggle: (self) => {
-            if (self.isActive) value.textContent = money(cumulative[i])
+            if (self.isActive) {
+              value.textContent = show(view, cumulative[i].mwk, cumulative[i].gbp)
+            }
           },
           onEnterBack: () => {
-            value.textContent = money(i > 0 ? cumulative[i - 1] : 0)
+            const prev = i > 0 ? cumulative[i - 1] : { mwk: 0, gbp: 0 }
+            value.textContent = show(view, prev.mwk, prev.gbp)
           },
         })
       })
     }
 
-    // a hairline under the running total, scrubbed by progress through the record
     const bar = q('.ledger__progress')[0]
-    if (bar) {
+    const years = q('.year')
+    if (bar && years.length) {
       gsap.fromTo(
         bar,
         { scaleX: 0 },
@@ -68,8 +80,8 @@ export default function Ledger() {
           scaleX: 1,
           ease: 'none',
           scrollTrigger: {
-            trigger: q('.year')[0],
-            endTrigger: q('.year')[q('.year').length - 1],
+            trigger: years[0],
+            endTrigger: years[years.length - 1],
             start: 'top 55%',
             end: 'bottom 55%',
             scrub: true,
@@ -78,25 +90,17 @@ export default function Ledger() {
       )
     }
 
-    // the coda holds still while the four years resolve into three figures
     const coda = q('.coda')[0]
     if (coda) {
       const lines = coda.querySelectorAll('.coda__line')
       gsap.set(lines, { opacity: 0, y: 30 })
       gsap
         .timeline({
-          scrollTrigger: {
-            trigger: coda,
-            start: 'top top',
-            end: '+=120%',
-            pin: true,
-            scrub: 0.6,
-          },
+          scrollTrigger: { trigger: coda, start: 'top top', end: '+=120%', pin: true, scrub: 0.6 },
         })
         .to(lines, { opacity: 1, y: 0, stagger: 0.5, ease: 'power2.out' })
     }
 
-    // year numerals sit deep behind the rows and drift slowly
     q('.year__rail').forEach((rail) => {
       gsap.fromTo(
         rail,
@@ -115,7 +119,6 @@ export default function Ledger() {
     })
   }, ref as React.RefObject<HTMLElement>)
 
-  // group months under their year
   const years = [...new Set(byMonth.map((m) => m.year))]
 
   return (
@@ -127,18 +130,19 @@ export default function Ledger() {
 
       <div className="ledger__head">
         <p className="eyebrow">The record</p>
-        <MaskedLines as="h2" text="Every payment, since the first one." className="h2" />
+        <MaskedLines as="h2" text="Every transfer, in order." className="h2" />
         <p className="dim" style={{ marginTop: '1rem' }}>
-          Four years, in order. Families appear as initials only. Nothing here identifies a
-          child.
-          {isPlaceholder ? ' The rows below are placeholders and every amount is zero.' : ''}
+          Money reaches the families through two coordinators, and most transfers cover
+          several households at once, so the record is kept by transfer rather than by
+          child. Nobody here is named. Nothing here identifies a child.
+          {isPlaceholder ? ' The rows below are placeholders.' : ''}
         </p>
       </div>
 
       <p className="ledger__running">
         <span className="ledger__running-label">Given by this point</span>
         <span className="ledger__running-value num" ref={runningRef}>
-          {money(total)}
+          {show(view, total, totalGbp)}
         </span>
         <span className="ledger__progress" aria-hidden="true" />
       </p>
@@ -154,7 +158,10 @@ export default function Ledger() {
               <div className="month" key={m.month}>
                 <p className="month__when">
                   {monthLabel(m.month)}
-                  <span className="month__total num">{money(m.total)}</span>
+                  <span className="month__total num">{show(view, m.total, m.totalGbp)}</span>
+                  {m.month < completeFrom ? (
+                    <span className="month__flag">partial record</span>
+                  ) : null}
                 </p>
                 <ul className="rows">
                   {m.entries.map((e, i) => (
@@ -165,7 +172,7 @@ export default function Ledger() {
                         {e.note ? <span className="row__note">{e.note}</span> : null}
                       </span>
                       <span className="row__leader" aria-hidden="true" />
-                      <span className="row__amount num">{money(e.amount)}</span>
+                      <span className="row__amount num">{entryMoney(e, view)}</span>
                     </li>
                   ))}
                 </ul>
@@ -175,12 +182,10 @@ export default function Ledger() {
       ))}
 
       <div className="coda">
-        <p className="coda__line coda__line--big num">{money(total)}</p>
+        <p className="coda__line coda__line--big num">{show(view, total, totalGbp)}</p>
+        <p className="coda__line">given across {entries.length} transfers, one at a time.</p>
         <p className="coda__line">
-          given across {entries.length} payments, one at a time.
-        </p>
-        <p className="coda__line">
-          {monthsRunning} months. {familiesInRecord} families in the record.
+          {monthsRunning} months. Around {familiesSupportedNow} families today.
         </p>
       </div>
     </section>

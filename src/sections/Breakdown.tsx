@@ -1,12 +1,14 @@
 import { useRef } from 'react'
 import gsap from 'gsap'
 import { Counter, MaskedLines, useGsap } from '../lib/motion'
-import { byCategory, byYear, money } from '../data/ledger'
+import { byCategory, byYear, show } from '../data/ledger'
+import { useCurrency } from '../lib/currency'
 
 const pct = (n: number) => `${Math.round(n * 100)}%`
 
 export default function Breakdown() {
   const ref = useRef<HTMLElement | null>(null)
+  const { view } = useCurrency()
 
   useGsap(({ el }) => {
     const q = gsap.utils.selector(el)
@@ -36,7 +38,7 @@ export default function Breakdown() {
               <span className="bar__key">{c.key}</span>
               <span className="bar__figs">
                 <span className="num">{c.count} payments</span>
-                <span className="bar__amount num">{money(c.total)}</span>
+                <span className="bar__amount num">{show(view, c.total, c.totalGbp)}</span>
               </span>
             </span>
             <span className="bar__track">
@@ -59,7 +61,10 @@ export default function Breakdown() {
           <p className="yearstat" key={y.key}>
             <span className="yearstat__key num">{y.key}</span>
             <span className="yearstat__value num">
-              <Counter value={y.total} format={(n) => money(n)} />
+              <Counter
+                value={view === 'GBP' ? y.totalGbp : y.total}
+                format={(n) => show(view, n, n)}
+              />
             </span>
             <span className="dim num" style={{ fontSize: '0.8rem' }}>
               {y.count} payments

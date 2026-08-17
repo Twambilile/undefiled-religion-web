@@ -1,22 +1,38 @@
 import csv from '../../data/ledger.csv?raw'
 import meta from '../../data/ledger.meta.json'
+import rates from '../../data/rates.json'
+
+export type Ccy = 'MWK' | 'GBP'
 
 export type Entry = {
   month: string // YYYY-MM
   year: number
   ref: string
   category: string
+  /** The amount as it was actually sent, in its own currency. */
   amount: number
+  currency: Ccy
   note: string
+  /** The same payment expressed in kwacha, converted at its own year's rate. */
+  mwk: number
+  /** And in pounds, again at its own year's rate. */
+  gbp: number
 }
 
 export const isPlaceholder: boolean = meta.placeholder === true
-export const currency: string = meta.currency || 'GBP'
 export const startDate: string = meta.startDate
 export const familiesSupportedNow: number = meta.familiesSupportedNow
+export const completeFrom: string = meta.completeFrom
+export const lastUpdated: string = meta.lastUpdated
+
+const gbpToMwk = rates.gbpToMwk as Record<string, number>
+const fallbackRate = 2600
+
+export function rateFor(year: number | string): number {
+  return gbpToMwk[String(year)] ?? fallbackRate
+}
 
 function splitRow(line: string): string[] {
-  // minimal CSV: supports quoted fields containing commas
   const out: string[] = []
   let cur = ''
   let quoted = false
@@ -39,23 +55,42 @@ export const entries: Entry[] = csv
   .slice(1)
   .filter((l) => l.trim().length > 0)
   .map((line) => {
-    const [month, ref, category, amount, note] = splitRow(line)
+    const [month, ref, category, amount, currency, note] = splitRow(line)
+    const year = Number(month.slice(0, 4))
+    const value = Number(amount) || 0
+    const ccy = (currency === 'GBP' ? 'GBP' : 'MWK') as Ccy
     return {
       month,
-      year: Number(month.slice(0, 4)),
+      year,
       ref,
       category,
-      amount: Number(amount) || 0,
+      amount: value,
+      currency: ccy,
       note: note || '',
+      mwk: ccy === 'GBP' ? value * rateFor(year) : value,
+      gbp: ccy === 'GBP' ? value : value / rateFor(year),
     }
   })
   .sort((a, b) => (a.month < b.month ? -1 : a.month > b.month ? 1 : 0))
 
-const sum = (xs: Entry[]) => xs.reduce((t, e) => t + e.amount, 0)
+const sum = (xs: Entry[]) => xs.reduce((t, e) => t + e.mwk, 0)
+const sumGbp = (xs: Entry[]) => xs.reduce((t, e) => t + e.gbp, 0)
 
+/**
+ * Kwacha is the currency of the record. The pound figure is not a conversion of
+ * the kwacha total at today's rate, which would be wrong by a long way: it is the
+ * sum of each entry converted at the rate for its own year.
+ */
 export const total = sum(entries)
+export const totalGbp = sumGbp(entries)
 
-export type MonthGroup = { month: string; year: number; total: number; entries: Entry[] }
+export type MonthGroup = {
+  month: string
+  year: number
+  total: number
+  totalGbp: number
+  entries: Entry[]
+}
 
 export const byMonth: MonthGroup[] = (() => {
   const map = new Map<string, Entry[]>()
@@ -70,24 +105,26 @@ export const byMonth: MonthGroup[] = (() => {
       month,
       year: Number(month.slice(0, 4)),
       total: sum(list),
+      totalGbp: sumGbp(list),
       entries: list,
     }))
 })()
 
-export type Split = { key: string; total: number; count: number; share: number }
+export type Split = { key: string; total: number; totalGbp: number; count: number; share: number }
 
 function split(keyOf: (e: Entry) => string): Split[] {
-  const map = new Map<string, { total: number; count: number }>()
+  const map = new Map<string, { total: number; totalGbp: number; count: number }>()
   for (const e of entries) {
     const k = keyOf(e)
-    const cur = map.get(k) || { total: 0, count: 0 }
-    cur.total += e.amount
+    const cur = map.get(k) || { total: 0, totalGbp: 0, count: 0 }
+    cur.total += e.mwk
+    cur.totalGbp += e.gbp
     cur.count += 1
     map.set(k, cur)
   }
   const grand = total || 1
   return [...map.entries()]
-    .map(([key, v]) => ({ key, total: v.total, count: v.count, share: v.total / grand }))
+    .map(([key, v]) => ({ ...v, key, share: v.total / grand }))
     .sort((a, b) => b.total - a.total || b.count - a.count)
 }
 
@@ -97,17 +134,17 @@ export const byYear: Split[] = split((e) => String(e.year)).sort((a, b) =>
   a.key < b.key ? -1 : 1,
 )
 
-/** Distinct families that appear anywhere in the record. */
-export const familiesInRecord: number = new Set(entries.map((e) => e.ref)).size
+export const routesInRecord: number = new Set(entries.map((e) => e.ref)).size
 
-/** Months between the first entry and the most recent one, inclusive. */
 export const monthsRunning: number = (() => {
   if (!byMonth.length) return 0
-  const [a, b] = [byMonth[0].month, byMonth[byMonth.length - 1].month]
-  const [ay, am] = a.split('-').map(Number)
-  const [by, bm] = b.split('-').map(Number)
-  return (by - ay) * 12 + (bm - am) + 1
+  const [y0, m0] = startDate.split('-').map(Number)
+  const [y1, m1] = byMonth[byMonth.length - 1].month.split('-').map(Number)
+  return (y1 - y0) * 12 + (m1 - m0) + 1
 })()
+
+/** Entries before the receipts began, which are known to be partial. */
+export const partialBefore: MonthGroup[] = byMonth.filter((m) => m.month < completeFrom)
 
 const monthNames = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -119,20 +156,27 @@ export function monthLabel(month: string): string {
   return `${monthNames[m - 1]} ${y}`
 }
 
-export function shortMonth(month: string): string {
-  const [, m] = month.split('-').map(Number)
-  return monthNames[m - 1].slice(0, 3)
-}
+/* -------------------------------------------------------------------- money */
 
-const nf = new Intl.NumberFormat('en-GB', {
+const mwkFmt = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 })
+const gbpFmt = new Intl.NumberFormat('en-GB', {
   style: 'currency',
-  currency,
+  currency: 'GBP',
   maximumFractionDigits: 0,
 })
 
-export function money(n: number): string {
-  return nf.format(n)
+/** Kwacha is the currency of the record. Pounds are the second view of it. */
+export function money(mwk: number, view: Ccy = 'MWK', year?: number): string {
+  if (view === 'GBP') return gbpFmt.format(mwk / rateFor(year ?? 2026))
+  return `MK ${mwkFmt.format(mwk)}`
 }
 
-export const symbol: string =
-  nf.formatToParts(0).find((p) => p.type === 'currency')?.value ?? '£'
+/** Shows a figure that already carries both sides, so nothing is reconverted. */
+export function show(view: Ccy, mwk: number, gbp: number): string {
+  return view === 'GBP' ? gbpFmt.format(gbp) : `MK ${mwkFmt.format(mwk)}`
+}
+
+/** For an entry, shows the amount as it was actually sent when it was a pound. */
+export function entryMoney(e: Entry, view: Ccy): string {
+  return show(view, e.mwk, e.gbp)
+}
