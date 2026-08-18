@@ -7,6 +7,8 @@ import {
   completeFrom,
   entries,
   familiesSupportedNow,
+  fmtIn,
+  valueIn,
   show,
   monthLabel,
   monthsRunning,
@@ -28,8 +30,8 @@ export default function Glance() {
           <span className="stat__k">Given since 2022</span>
           <span className="stat__v num">
             <Counter
-              value={view === 'GBP' ? totalGbp : total}
-              format={(n) => show(view, n, n)}
+              value={valueIn(view, total, totalGbp)}
+              format={(n) => fmtIn(view, n)}
             />
           </span>
         </Reveal>

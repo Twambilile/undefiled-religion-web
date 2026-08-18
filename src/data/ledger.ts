@@ -2,7 +2,27 @@ import csv from '../../data/ledger.csv?raw'
 import meta from '../../data/ledger.meta.json'
 import rates from '../../data/rates.json'
 
-export type Ccy = 'MWK' | 'GBP'
+export type Ccy = string
+
+/** What the currency switch offers. MWK and GBP are the two the record is in. */
+export const currencies: { code: Ccy; label: string }[] = [
+  { code: 'MWK', label: 'Malawian kwacha' },
+  { code: 'GBP', label: 'British pound' },
+  { code: 'USD', label: 'US dollar' },
+  { code: 'EUR', label: 'Euro' },
+  { code: 'ZAR', label: 'South African rand' },
+  { code: 'KES', label: 'Kenyan shilling' },
+  { code: 'NGN', label: 'Nigerian naira' },
+  { code: 'CAD', label: 'Canadian dollar' },
+  { code: 'AUD', label: 'Australian dollar' },
+  { code: 'AED', label: 'UAE dirham' },
+  { code: 'INR', label: 'Indian rupee' },
+]
+
+const perGbp = rates.perGbp as Record<string, number>
+
+/** True only for the two currencies the money was actually handled in. */
+export const isExact = (c: Ccy) => c === 'MWK' || c === 'GBP'
 
 export type Entry = {
   month: string // YYYY-MM
@@ -58,7 +78,7 @@ export const entries: Entry[] = csv
     const [month, ref, category, amount, currency, note] = splitRow(line)
     const year = Number(month.slice(0, 4))
     const value = Number(amount) || 0
-    const ccy = (currency === 'GBP' ? 'GBP' : 'MWK') as Ccy
+    const ccy: Ccy = currency === 'GBP' ? 'GBP' : 'MWK'
     return {
       month,
       year,
@@ -165,15 +185,52 @@ const gbpFmt = new Intl.NumberFormat('en-GB', {
   maximumFractionDigits: 0,
 })
 
-/** Kwacha is the currency of the record. Pounds are the second view of it. */
-export function money(mwk: number, view: Ccy = 'MWK', year?: number): string {
-  if (view === 'GBP') return gbpFmt.format(mwk / rateFor(year ?? 2026))
-  return `MK ${mwkFmt.format(mwk)}`
+const fmtCache = new Map<string, Intl.NumberFormat>()
+function fmtFor(code: string): Intl.NumberFormat {
+  let f = fmtCache.get(code)
+  if (!f) {
+    f = new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: code,
+      maximumFractionDigits: 0,
+    })
+    fmtCache.set(code, f)
+  }
+  return f
 }
 
-/** Shows a figure that already carries both sides, so nothing is reconverted. */
+/**
+ * The amount in the chosen currency, as a number. Kwacha and pounds are the two
+ * the money was really handled in; anything else is crossed off the POUND
+ * figure, never off the kwacha one, or the rate gets applied twice.
+ */
+export function valueIn(view: Ccy, mwk: number, gbp: number): number {
+  if (view === 'MWK') return mwk
+  if (view === 'GBP') return gbp
+  return gbp * (perGbp[view] ?? 1)
+}
+
+/** Formats a number that is already in the chosen currency. */
+export function fmtIn(view: Ccy, n: number): string {
+  if (view === 'MWK') return `MK ${mwkFmt.format(n)}`
+  if (view === 'GBP') return gbpFmt.format(n)
+  return fmtFor(view).format(n)
+}
+
 export function show(view: Ccy, mwk: number, gbp: number): string {
-  return view === 'GBP' ? gbpFmt.format(gbp) : `MK ${mwkFmt.format(mwk)}`
+  return fmtIn(view, valueIn(view, mwk, gbp))
+}
+
+/** Kwacha is the currency of the record. Everything else is a view of it. */
+export function money(mwk: number, view: Ccy = 'MWK', year?: number): string {
+  return show(view, mwk, mwk / rateFor(year ?? 2026))
+}
+
+/** One pound in the chosen currency, for the calculator's input side. */
+export function perPound(view: Ccy): number {
+  if (view === 'MWK') return rateFor(2026)
+  if (view === 'GBP') return 1
+  return perGbp[view] ?? 1
 }
 
 /** For an entry, shows the amount as it was actually sent when it was a pound. */

@@ -1,18 +1,10 @@
 import { useMemo, useState } from 'react'
 import { MaskedLines, Reveal } from '../lib/motion'
+import { useCurrency } from '../lib/currency'
+import { currencies, perPound, rateFor } from '../data/ledger'
 
-/**
- * Everything is reckoned in kwacha, because that is what gets spent. The three
- * input currencies convert at roughly this year's rate. These are estimates and
- * the section says so.
- */
-const perUnitMwk: Record<string, number> = {
-  MWK: 1,
-  GBP: 2600,
-  USD: 2050,
-}
-
-const symbol: Record<string, string> = { MWK: 'MK', GBP: '£', USD: '$' }
+/** Kwacha per one unit of the chosen currency, via the pound. */
+const mwkPerUnit = (code: string) => rateFor(2026) / perPound(code)
 
 /**
  * Real building blocks, in kwacha, from our own budgets. `share` is the slice
@@ -98,10 +90,11 @@ function headline(amountMwk: number): string | null {
 
 export default function Calculator() {
   const [raw, setRaw] = useState('100')
-  const [cur, setCur] = useState<'GBP' | 'USD' | 'MWK'>('GBP')
+  const { view, setView } = useCurrency()
+  const cur = view
 
   const value = Math.max(0, Number(raw.replace(/[^0-9.]/g, '')) || 0)
-  const amountMwk = value * perUnitMwk[cur]
+  const amountMwk = value * mwkPerUnit(cur)
 
   const result = useMemo(() => {
     if (amountMwk <= 0) return null
@@ -116,19 +109,18 @@ export default function Calculator() {
       <div className="calc__panel">
         <div className="calc__input">
           <div className="calc__field">
-            <label className="calc__cur" htmlFor="calc-amount">
-              <span className="visually-hidden">Currency</span>
-              <select
-                value={cur}
-                onChange={(e) => setCur(e.target.value as typeof cur)}
-                aria-label="Currency"
-                className="calc__select"
-              >
-                <option value="GBP">£</option>
-                <option value="USD">$</option>
-                <option value="MWK">MK</option>
-              </select>
-            </label>
+            <select
+              value={cur}
+              onChange={(e) => setView(e.target.value)}
+              aria-label="Currency"
+              className="calc__select"
+            >
+              {currencies.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.code}
+                </option>
+              ))}
+            </select>
             <input
               id="calc-amount"
               className="calc__amount num"
@@ -139,10 +131,14 @@ export default function Calculator() {
             />
           </div>
           <div className="calc__chips">
-            {[25, 50, 100, 250].map((n) => (
-              <button key={n} type="button" className="calc__chip" onClick={() => setRaw(String(n))}>
-                {symbol[cur]}
-                {n}
+            {(cur === 'MWK' ? [25000, 50000, 100000, 250000] : [25, 50, 100, 250]).map((n) => (
+              <button
+                key={n}
+                type="button"
+                className="calc__chip"
+                onClick={() => setRaw(String(n))}
+              >
+                {new Intl.NumberFormat('en-GB').format(n)}
               </button>
             ))}
           </div>
@@ -173,8 +169,8 @@ export default function Calculator() {
 
       <Reveal as="p" className="dim calc__note">
         Worked out from the real prices in our record. Kwacha is what we actually spend;
-        the pound and dollar rates are rough and move over time. It is a guide to what an
-        amount does, not a checkout.
+        the other currencies convert at roughly today's rate and move as it moves. It is
+        a guide to what an amount does, not a checkout.
       </Reveal>
     </section>
   )

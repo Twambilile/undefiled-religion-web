@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { Link } from 'react-router-dom'
 import { Counter, MaskedLines, Plane, useGsap } from '../lib/motion'
 import { useCurrency } from '../lib/currency'
-import { entries, familiesSupportedNow, show, total, totalGbp } from '../data/ledger'
+import { entries, familiesSupportedNow, fmtIn, total, totalGbp, valueIn } from '../data/ledger'
 
 export default function Hero() {
   const ref = useRef<HTMLElement | null>(null)
@@ -59,8 +59,8 @@ export default function Hero() {
           <span className="total__label">Given since 2022</span>
           <span className="total__value num">
             <Counter
-              value={view === 'GBP' ? totalGbp : total}
-              format={(n) => show(view, n, n)}
+              value={valueIn(view, total, totalGbp)}
+              format={(n) => fmtIn(view, n)}
             />
           </span>
           <span className="total__sub num">

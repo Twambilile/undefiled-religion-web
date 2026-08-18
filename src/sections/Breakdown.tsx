@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import gsap from 'gsap'
 import { Counter, MaskedLines, useGsap } from '../lib/motion'
-import { byCategory, byYear, show } from '../data/ledger'
+import { byCategory, byYear, fmtIn, show, valueIn } from '../data/ledger'
 import { useCurrency } from '../lib/currency'
 
 const pct = (n: number) => `${Math.round(n * 100)}%`
@@ -62,8 +62,8 @@ export default function Breakdown() {
             <span className="yearstat__key num">{y.key}</span>
             <span className="yearstat__value num">
               <Counter
-                value={view === 'GBP' ? y.totalGbp : y.total}
-                format={(n) => show(view, n, n)}
+                value={valueIn(view, y.total, y.totalGbp)}
+                format={(n) => fmtIn(view, n)}
               />
             </span>
             <span className="dim num" style={{ fontSize: '0.8rem' }}>

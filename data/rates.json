@@ -1,5 +1,5 @@
 {
-  "_readme": "Kwacha per pound, one figure per year, used only to show a single combined total and to offer the pound view. These are ESTIMATES and the site says so wherever a converted figure appears. Replace them with the rates actually received if you have them. Entries are converted at the rate for their own year, never at today's rate, because the kwacha moved a long way over this period.",
+  "_readme": "gbpToMwk is kwacha per pound, one figure per YEAR. Entries convert at the rate for their own year, never at today's rate, because the kwacha moved a long way over this period. perGbp is how many units of each other currency one pound buys TODAY, used only for the other display currencies; those are approximate and the site says so. Kwacha figures are always exact, because kwacha is what was actually sent.",
   "base": "MWK",
   "gbpToMwk": {
     "2022": 1030,
@@ -7,5 +7,16 @@
     "2024": 2250,
     "2025": 2450,
     "2026": 2600
+  },
+  "perGbp": {
+    "USD": 1.27,
+    "EUR": 1.17,
+    "ZAR": 23.5,
+    "CAD": 1.74,
+    "AUD": 1.94,
+    "KES": 164,
+    "NGN": 1950,
+    "INR": 106,
+    "AED": 4.66
   }
 }

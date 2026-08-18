@@ -39,7 +39,7 @@ function Nav() {
   const onLedger = pathname === '/ledger'
 
   return (
-    <nav className="island glass" aria-label="Main">
+    <nav className="island" aria-label="Main">
       <Link className="island__brand" to="/" aria-label="Undefiled Religion, home">
         {mark}
         <span className="island__name">Undefiled Religion</span>
@@ -93,12 +93,15 @@ export default function App() {
               record, which has not been published yet.
             </p>
           ) : null}
+          <div className="bezel" aria-hidden="true" />
           <Nav />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/ledger" element={<LedgerPage />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
+          <div className="frame">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/ledger" element={<LedgerPage />} />
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </div>
         </CurrencyProvider>
       </ThemeProvider>
     </BrowserRouter>

@@ -63,7 +63,7 @@ function ensureReady() {
 let lenisRef: Lenis | null = null
 
 /** How far below the top of the viewport a jumped-to section should land. */
-const NAV_CLEARANCE = 96
+const NAV_CLEARANCE = 78
 
 /**
  * Glides to a section instead of teleporting. Uses Lenis when it is running so

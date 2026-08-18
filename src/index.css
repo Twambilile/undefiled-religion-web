@@ -41,6 +41,10 @@
   --glass-bg-thin: rgba(16, 12, 8, 0.44);
   --glass-brd: rgba(244, 239, 230, 0.16);
   --glass-hi: rgba(255, 255, 255, 0.24);
+
+  /* the bezel the island hangs from, and how deep it sits */
+  --bezel: #080605;
+  --bezel-h: 3.1rem;
 }
 
 /* Dark mode flips the paper surfaces to a warm near-black. The already-dark

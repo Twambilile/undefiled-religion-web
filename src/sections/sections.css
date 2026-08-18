@@ -127,11 +127,28 @@
 
 /* ------------------------------------------------------- the dynamic island */
 
-/* A short, self-sizing pill. It hugs its contents rather than spanning the
-   page, which is the whole character of the thing. */
+/*
+ * The island is not a floating capsule with a margin above it. It is a notch
+ * hanging out of a bezel: a full width band across the top of the page in the
+ * same colour, with the pill pinned to the very top and only its bottom corners
+ * rounded. Band and pill are one continuous shape, so the pill reads as carved
+ * out of the top edge rather than parked below it. The content beneath is a
+ * card with rounded top corners, which is what makes the band read as a frame.
+ */
+.bezel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--bezel-h);
+  z-index: 39;
+  background: var(--bezel);
+  pointer-events: none;
+}
+
 .island {
   position: fixed;
-  top: max(0.75rem, env(safe-area-inset-top));
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 40;
@@ -140,14 +157,27 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.35rem 0.35rem 0.85rem;
-  border-radius: 999px;
+  /* the extra top padding is the part that lives up inside the band */
+  padding: calc(var(--bezel-h) - 1.85rem) 0.4rem 0.5rem 0.9rem;
+  border-radius: 0 0 1.35rem 1.35rem;
+  background: var(--bezel);
+  border: 0;
+  box-shadow:
+    0 1px 0 rgba(244, 239, 230, 0.09) inset,
+    0 14px 30px -14px rgba(0, 0, 0, 0.8);
   color: var(--light);
   font-family: var(--mono);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: box-shadow var(--t-base);
+}
+
+/* the content card the band frames */
+.frame {
+  border-radius: 1.5rem 1.5rem 0 0;
+  overflow: clip;
+  margin-top: var(--bezel-h);
+  background: var(--dark);
 }
 
 .island__brand {
@@ -246,31 +276,50 @@
   }
 }
 
-/* the currency toggle, compact enough to live inside the island */
+/* the currency switch, a real select dressed to sit inside the island */
 .ccy {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.ccy__btn {
-  appearance: none;
-  background: none;
-  border: 0;
-  padding: 0.2rem 0;
-  font: inherit;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 0.5rem 0 0.55rem;
+  border-radius: 999px;
+  background: rgba(244, 239, 230, 0.08);
   color: var(--light-2);
-  cursor: pointer;
-  border-bottom: 1px solid transparent;
-  transition: color var(--t-fast);
+  transition: background var(--t-fast), color var(--t-fast);
 }
 
-.ccy__btn:hover {
+.ccy:hover {
+  background: rgba(244, 239, 230, 0.16);
   color: var(--light);
 }
 
-.ccy__btn[aria-pressed='true'] {
+.ccy__select {
+  appearance: none;
+  background: none;
+  border: 0;
+  font: inherit;
   color: var(--ochre);
-  border-bottom-color: var(--ochre);
+  padding: 0.42rem 0;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+}
+
+.ccy__select:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.ccy__select option {
+  background: #14100b;
+  color: #f4efe6;
+  letter-spacing: normal;
+}
+
+.ccy__chev {
+  pointer-events: none;
+  color: var(--light-2);
 }
 
 /* --------------------------------------------------------------------- what */
@@ -703,8 +752,8 @@
 
 .ledger__running {
   position: sticky;
-  /* clears the floating island, which would otherwise sit on top of the total */
-  top: 4.4rem;
+  /* clears the bezel the island hangs from */
+  top: calc(var(--bezel-h) + 0.5rem);
   z-index: 4;
   display: flex;
   flex-wrap: wrap;
@@ -715,14 +764,17 @@
   padding: 0.85rem var(--gutter) 0.8rem;
   max-width: none;
   background: var(--bg);
-  box-shadow: 0 1px 0 var(--line), 0 18px 26px -18px var(--bg);
+  box-shadow: 0 1px 0 var(--line);
 }
 
+/* See-through, so the rows travel visibly underneath it. The blur and the
+   slight darkening are what keep the figure readable over moving text. */
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .ledger__running {
-    background: color-mix(in srgb, var(--bg) 66%, transparent);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    backdrop-filter: blur(14px) saturate(140%);
+    background: color-mix(in srgb, var(--bg) 30%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(150%) brightness(0.72);
+    backdrop-filter: blur(20px) saturate(150%) brightness(0.72);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 45%, transparent);
   }
 }
 

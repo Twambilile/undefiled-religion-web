@@ -1,18 +1,19 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import type { Ccy } from '../data/ledger'
+import { currencies, type Ccy } from '../data/ledger'
 
 type Ctx = { view: Ccy; setView: (c: Ccy) => void }
 
 const CurrencyContext = createContext<Ctx>({ view: 'MWK', setView: () => {} })
 
 const KEY = 'ur-currency'
+const codes = currencies.map((c) => c.code)
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {
   const [view, setView] = useState<Ccy>('MWK')
 
   useEffect(() => {
     const saved = localStorage.getItem(KEY)
-    if (saved === 'GBP' || saved === 'MWK') setView(saved)
+    if (saved && codes.includes(saved)) setView(saved)
   }, [])
 
   useEffect(() => {
@@ -25,26 +26,26 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
 export const useCurrency = () => useContext(CurrencyContext)
 
+/** A real select, so it works with a keyboard and on a phone without any fuss. */
 export function CurrencyToggle() {
   const { view, setView } = useCurrency()
   return (
-    <div className="ccy" role="group" aria-label="Currency">
-      <button
-        type="button"
-        className="ccy__btn"
-        aria-pressed={view === 'MWK'}
-        onClick={() => setView('MWK')}
+    <span className="ccy">
+      <select
+        className="ccy__select"
+        value={view}
+        onChange={(e) => setView(e.target.value)}
+        aria-label="Show amounts in"
       >
-        Kwacha
-      </button>
-      <button
-        type="button"
-        className="ccy__btn"
-        aria-pressed={view === 'GBP'}
-        onClick={() => setView('GBP')}
-      >
-        Pounds
-      </button>
-    </div>
+        {currencies.map((c) => (
+          <option key={c.code} value={c.code}>
+            {c.code}
+          </option>
+        ))}
+      </select>
+      <svg viewBox="0 0 12 8" width="9" height="6" aria-hidden="true" className="ccy__chev">
+        <path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+      </svg>
+    </span>
   )
 }
