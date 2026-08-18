@@ -54,16 +54,23 @@ jobs:
             echo "No change to the record."
           fi
 
+      # Pages serves this at /<repo-name>/, so the build needs that prefix.
+      # Set a BASE_PATH repository variable to override, e.g. "/" for a real
+      # domain, otherwise it is worked out from the repository name.
       - name: Build
         env:
-          BASE_PATH: ${{ vars.BASE_PATH }}
+          BASE_PATH: ${{ vars.BASE_PATH != '' && vars.BASE_PATH || format('/{0}/', github.event.repository.name) }}
         run: npm run build
 
       # A single page app on Pages needs this or /ledger 404s on a hard refresh.
       - name: SPA fallback
         run: cp dist/index.html dist/404.html
 
+      # enablement turns Pages on and sets its source to Actions using the
+      # workflow's own token, so nobody has to click through Settings > Pages
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
