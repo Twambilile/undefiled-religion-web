@@ -45,6 +45,11 @@
   --glass-brd: rgba(244, 239, 230, 0.16);
   --glass-hi: rgba(255, 255, 255, 0.24);
 
+  /* the mark's three accents: warm, related, and legible on paper and on dark */
+  --m-ochre: #e8a24a;
+  --m-rust: #c26a3c;
+  --m-sage: #8d9b6a;
+
   /* the bezel the island hangs from, and how deep it sits */
   --bezel: #080605;
   --bezel-h: 3.1rem;
@@ -59,6 +64,11 @@
   --ink-2: #b0a48f;
   --ink-line: rgba(242, 237, 227, 0.15);
   --ochre-ink: #e8a24a;
+}
+
+/* on paper the rust needs to sit a little deeper to hold its contrast */
+:root:not([data-theme='dark']) .surface--paper {
+  --m-rust: #b05a2e;
 }
 
 :root[data-theme='dark'] body {
@@ -254,112 +264,68 @@ p,
 /* --------------------------------------------------------------------- mark */
 
 /*
- * Nine dots, and the ninth is smaller. The animation is the verse: all nine
- * arrive the same, then the last one shrinks and lights. Nothing joins the grid
- * and nothing leaves it, only the attention moves.
+ * Nine shapes, none the same, on one grid. The difference is the point and so
+ * is the grid: they never touch and it still reads as one object.
  */
 .mark {
   display: block;
   overflow: visible;
 }
 
-.mark__dot,
-.mark__least {
+.mark__bit {
   fill: currentColor;
   transform-box: fill-box;
   transform-origin: center;
 }
 
-.mark__least {
-  fill: currentColor;
+.mark__bit--ochre {
+  fill: var(--m-ochre);
+}
+.mark__bit--rust {
+  fill: var(--m-rust);
+}
+.mark__bit--sage {
+  fill: var(--m-sage);
 }
 
-/* the resting state, for anywhere the mark is not animating */
-.mark:not(.mark--anim) .mark__least {
-  fill: var(--ochre);
-  transform: scale(0.55);
-}
-
-/* armed by script only, so a still mark is the fallback rather than a blank one */
-.js-anim .mark--anim .mark__dot {
+/* Armed by script only, so a complete mark is the fallback rather than a blank
+   one. They arrive separately, each on its own delay, and land as one. */
+.js-anim .mark--anim .mark__bit {
   opacity: 0;
-  transform: scale(0.4);
+  transform: scale(0.3) rotate(-8deg);
 }
 
-.js-anim .mark--anim .mark__least {
-  opacity: 0;
-  transform: scale(0.4);
-  fill: currentColor;
-}
-
-.js-anim .is-in .mark--anim .mark__dot {
+.js-anim .is-in .mark--anim .mark__bit {
   opacity: 1;
   transform: none;
   transition:
-    opacity 0.45s ease,
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.5s ease,
+    transform 0.85s cubic-bezier(0.16, 1.1, 0.3, 1);
 }
 
-/* the ninth waits for the other eight, arrives equal, then becomes the least */
-.js-anim .is-in .mark--anim .mark__least {
-  opacity: 1;
-  animation: mark-least 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-}
-
-@keyframes mark-least {
-  0% {
-    transform: scale(0.4);
-    fill: currentColor;
-  }
-  38% {
-    transform: scale(1);
-    fill: currentColor;
-  }
-  100% {
-    transform: scale(0.55);
-    fill: var(--ochre);
-  }
-}
-
-/* the nav mark plays once when the page loads, then rests */
-.island__logo .mark__dot {
+/* the nav mark plays once when the page loads */
+.island__logo .mark__bit {
   opacity: 0;
-  animation: mark-in 0.5s ease forwards;
-}
-
-.island__logo .mark__least {
-  animation: mark-least-nav 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+  animation: mark-in 0.7s cubic-bezier(0.16, 1.1, 0.3, 1) forwards;
 }
 
 @keyframes mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.3) rotate(-8deg);
+  }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes mark-least-nav {
-  0% {
-    transform: scale(1);
-    fill: currentColor;
-  }
-  100% {
-    transform: scale(0.55);
-    fill: var(--ochre);
+    transform: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mark__dot,
-  .mark__least,
-  .island__logo .mark__dot,
-  .island__logo .mark__least {
+  .mark__bit,
+  .island__logo .mark__bit {
     animation: none !important;
     opacity: 1 !important;
-  }
-  .mark__least,
-  .island__logo .mark__least {
-    fill: var(--ochre) !important;
-    transform: scale(0.55) !important;
+    transform: none !important;
   }
 }
 

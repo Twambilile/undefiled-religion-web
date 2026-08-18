@@ -1,6 +1,5 @@
 import { useRef } from 'react'
-import { MaskedLines, Plane, Reveal, motionOff } from '../lib/motion'
-import { useInViewClass } from '../lib/motion'
+import { MaskedLines, Plane, Reveal, motionOff, useInViewClass } from '../lib/motion'
 import Mark from '../components/Mark'
 
 export default function TheMark() {
@@ -14,40 +13,46 @@ export default function TheMark() {
       </div>
 
       <p className="eyebrow">The mark</p>
-      <MaskedLines as="h2" text="Nine of them, and the ninth is smaller." className="h2" />
+      <MaskedLines as="h2" text="Nine shapes, no two the same, on one grid." className="h2" />
 
       <div className="themark__grid">
         <div className="themark__stage" ref={holder}>
-          <Mark size={200} animated={!motionOff()} title="The Undefiled Religion mark: nine dots, the ninth smaller and lit" />
+          <Mark
+            size={220}
+            animated={!motionOff()}
+            title="The Undefiled Religion mark: nine different shapes arranged on one grid"
+          />
         </div>
 
         <div className="themark__body">
           <Reveal as="p" className="lead">
-            Eight of the nine are drawn the same: same size, same ink. In a list of
-            people that is what everybody looks like. The ninth is smaller, and it is
-            the only one carrying any colour, so it is the one your eye goes to.
+            A circle, a square, a triangle, a diamond, an arch, a capsule. Some large,
+            some small, three of them carrying colour and the rest taking the ink of
+            whatever they sit on. Nobody in this is interchangeable and the mark does not
+            pretend otherwise.
           </Reveal>
 
           <Reveal as="p">
-            It goes there because it is the least, which is the argument the verse is
-            making. Nothing joins the grid and nothing leaves it. The same nine are
-            there at the end as at the beginning. All that moves is the attention.
+            What holds it together is the grid. Every shape sits on its own point, none
+            of them touch, and it still reads as one object. That is the argument: the
+            difference is the point, and so is the fact that it is one thing.
           </Reveal>
 
           <Reveal>
             <blockquote className="themark__quote">
               <p className="themark__verse">
-                Inasmuch as ye have done it unto one of the least of these my brethren,
-                ye have done it unto me.
+                For as the body is one, and hath many members, and all the members of
+                that one body, being many, are one body.
               </p>
-              <cite className="verse__cite">Matthew 25:40, King James Version</cite>
+              <cite className="verse__cite">1 Corinthians 12:12, King James Version</cite>
             </blockquote>
           </Reveal>
 
           <Reveal as="p" className="dim">
-            It is also the shape of the record. Most months are one more ordinary
-            payment among many, and the one that matters is whichever family had the
-            worst month.
+            There is an older line that fits this project more exactly. Psalm 68 says God
+            sets the solitary in families. That is the thing we are actually trying to
+            do, and it is why the shapes are a family rather than a logo of a hand or a
+            heart.
           </Reveal>
         </div>
       </div>
