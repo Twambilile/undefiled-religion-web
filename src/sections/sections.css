@@ -877,6 +877,11 @@
   max-width: 44rem;
 }
 
+.vision__note {
+  margin-top: clamp(2.5rem, 7vh, 4rem);
+  max-width: 44rem;
+}
+
 /* -------------------------------------------------------------------- story */
 
 .story__grid {

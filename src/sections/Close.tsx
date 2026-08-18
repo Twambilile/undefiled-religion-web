@@ -27,7 +27,8 @@ export default function Close() {
             Undefiled Religion. Malawi. Running for {monthsRunning} months and counting.
           </p>
           <p style={{ margin: 0 }}>
-            Not a registered charity. Started and paid for by the two of us.
+            Not a registered charity. Started and paid for by the two of us. Two unpaid
+            coordinators in Malawi, and one housemother we pay.
           </p>
           <p style={{ margin: 0 }}>
             No names, no schools, no places. We keep the people we help out of it.

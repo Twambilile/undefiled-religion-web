@@ -25,10 +25,10 @@ export default function Verse() {
           <cite className="verse__cite">James 1:27, King James Version</cite>
         </blockquote>
         <Reveal as="p" className="verse__gloss">
-          That verse is where the name comes from. It sets a plain test: whether anyone
-          was actually helped, and whether anything actually changed for them. Fees paid,
-          flour delivered, a hospital bill covered. The rest of this site is just us
-          keeping count of that.
+          That verse is where the name comes from, and it is the whole brief. It sets a
+          plain test: whether anyone was actually helped, and whether anything actually
+          changed for them. Fees paid, flour delivered, a hospital bill covered. What
+          follows is who we are, how it works, and every kwacha of it.
         </Reveal>
       </div>
     </section>

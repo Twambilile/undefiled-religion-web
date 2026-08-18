@@ -31,6 +31,7 @@ const mark = (
 const links = [
   { id: 'route', label: 'The route' },
   { id: 'figures', label: 'The figures' },
+  { id: 'vision', label: 'The plan' },
   { id: 'give', label: 'Give' },
 ]
 
