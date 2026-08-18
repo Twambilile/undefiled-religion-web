@@ -12,9 +12,13 @@ export default function Verse() {
       <div className="verse__inner">
         <p className="eyebrow">Where the name comes from</p>
         <blockquote style={{ margin: 0 }}>
+          <span className="verse__cap" aria-hidden="true">
+            P
+          </span>
           <MaskedLines
             as="p"
-            text="Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction."
+            text="ure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction."
+            label="Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction."
             className="verse__text"
             stagger={0.035}
           />

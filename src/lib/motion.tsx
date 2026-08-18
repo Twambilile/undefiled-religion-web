@@ -173,12 +173,15 @@ export function Reveal({
  */
 export function MaskedLines({
   text,
+  label,
   as: Tag = 'h2',
   className,
   stagger = 0.055,
   start = 'top 85%',
 }: {
   text: string
+  /** What a screen reader hears, when the visible text is only part of it. */
+  label?: string
   as?: 'h1' | 'h2' | 'h3' | 'p'
   className?: string
   stagger?: number
@@ -188,8 +191,12 @@ export function MaskedLines({
   useInView(ref, start)
   const words = text.split(' ')
   return (
-    // @ts-expect-error polymorphic tag
-    <Tag ref={ref} className={['masked', className].filter(Boolean).join(' ')} aria-label={text}>
+    <Tag
+      // @ts-expect-error polymorphic tag
+      ref={ref}
+      className={['masked', className].filter(Boolean).join(' ')}
+      aria-label={label ?? text}
+    >
       {words.map((w, i) => (
         <span key={i} aria-hidden="true">
           <span className="m-word">
