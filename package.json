@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync": "node scripts/sync-sheet.mjs",
+    "sync:dry": "node scripts/sync-sheet.mjs --dry-run",
+    "publish": "npm run sync && npm run build"
   },
   "dependencies": {
     "gsap": "^3.15.0",

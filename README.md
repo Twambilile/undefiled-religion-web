@@ -19,9 +19,19 @@ to be sorted first and this copy has to change with it.
 
 ## The record
 
-Everything on the page is derived from `data/ledger.csv`, a plain file a
-non-developer can edit in Excel, Numbers or Google Sheets. See
-[data/README.md](data/README.md) for the columns and the safeguarding rules.
+Everything on the page is derived from `data/ledger.csv`. That file is not
+edited by hand: it is pulled from a published Google Sheet by
+`scripts/sync-sheet.mjs`, which runs every morning in GitHub Actions and
+republishes the site. **[data/SHEET.md](data/SHEET.md) is the guide to updating
+the record**, and [data/README.md](data/README.md) covers the columns and the
+safeguarding rules.
+
+The sync is a gate, not a pipe. It refuses to publish a sheet with a bad month,
+a non-numeric amount, an unknown currency or a missing ref, and it refuses a
+sheet that has suddenly lost a fifth of its rows, which is what a bad paste
+looks like. On any of those the run stops and the live site keeps the last good
+record. It also warns, without stopping, when a note looks like it holds a phone
+number, an email, a named school or a place.
 
 The record runs from February 2023, when the WhatsApp group was created, to the
 present. From July 2024 every row comes from a transfer receipt. Before that the

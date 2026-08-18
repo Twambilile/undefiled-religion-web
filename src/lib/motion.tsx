@@ -289,8 +289,11 @@ export function Plane({
     const el = ref.current
     if (!el || !src) return
     const target = el.parentElement ?? el
+    // absolute paths need the deploy base in front of them, or they break
+    // the moment the site is served from a subpath
+    const href = src.startsWith('/') ? import.meta.env.BASE_URL + src.slice(1) : src
     const load = () => {
-      el.style.backgroundImage = `url(${src})`
+      el.style.backgroundImage = `url(${href})`
     }
     if (!('IntersectionObserver' in window)) {
       load()

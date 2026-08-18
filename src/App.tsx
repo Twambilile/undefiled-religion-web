@@ -121,7 +121,7 @@ export default function App() {
   useLenis()
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ThemeProvider>
         <CurrencyProvider>
           <ResetScroll />

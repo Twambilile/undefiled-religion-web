@@ -1,0 +1,79 @@
+name: Publish the record
+
+# Pulls the Google Sheet, rebuilds the site and publishes it.
+#  - every morning, so a sheet edit goes live on its own
+#  - on any push to main
+#  - on demand, from the Actions tab, when you want it live now
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Pull the sheet. If it is malformed the script exits non-zero and the
+      # whole run stops, so the live site keeps the last good record.
+      - name: Sync the sheet
+        if: vars.SHEET_CSV_URL != ''
+        env:
+          SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
+        run: npm run sync
+
+      # Commit the pulled record so git history stays the audit trail.
+      - name: Commit any change to the record
+        run: |
+          if [ -n "$(git status --porcelain data/)" ]; then
+            git config user.name "Undefiled Religion bot"
+            git config user.email "actions@github.com"
+            git add data/
+            git commit -m "Record updated from the sheet"
+            git push
+          else
+            echo "No change to the record."
+          fi
+
+      - name: Build
+        env:
+          BASE_PATH: ${{ vars.BASE_PATH }}
+        run: npm run build
+
+      # A single page app on Pages needs this or /ledger 404s on a hard refresh.
+      - name: SPA fallback
+        run: cp dist/index.html dist/404.html
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

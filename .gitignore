@@ -1,4 +1,5 @@
+.DS_Store
+.env.local
+Undefiledreligion-web
 dist
 node_modules
-.DS_Store
-Undefiledreligion-web
