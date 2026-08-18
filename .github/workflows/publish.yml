@@ -60,12 +60,23 @@ jobs:
             echo "No change to the record."
           fi
 
-      # Pages serves this at /<repo-name>/, so the build needs that prefix.
-      # Set a BASE_PATH repository variable to override, e.g. "/" for a real
-      # domain, otherwise it is worked out from the repository name.
+      # A custom domain serves from the root; a bare Pages site serves from
+      # /<repo-name>/. public/CNAME is what decides which, so the base path is
+      # derived from it rather than from a variable somebody has to remember.
+      - name: Work out the base path
+        id: base
+        run: |
+          if [ -n "${{ vars.BASE_PATH }}" ]; then
+            echo "path=${{ vars.BASE_PATH }}" >> "$GITHUB_OUTPUT"
+          elif [ -f public/CNAME ]; then
+            echo "path=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build
         env:
-          BASE_PATH: ${{ vars.BASE_PATH != '' && vars.BASE_PATH || format('/{0}/', github.event.repository.name) }}
+          BASE_PATH: ${{ steps.base.outputs.path }}
         run: npm run build
 
       # A single page app on Pages needs this or /ledger 404s on a hard refresh.
