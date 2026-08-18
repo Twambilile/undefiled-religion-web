@@ -8,6 +8,7 @@ import { ThemeProvider, ThemeToggle } from './lib/theme'
 import { isPlaceholder } from './data/ledger'
 import Home from './pages/Home'
 import LedgerPage from './pages/LedgerPage'
+import Mark from './components/Mark'
 
 /** New page, top of the page, and every trigger measured again. */
 function ResetScroll() {
@@ -19,14 +20,6 @@ function ResetScroll() {
   return null
 }
 
-const mark = (
-  <svg className="nav__logo" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
-    <rect width="32" height="32" rx="10" fill="var(--ochre)" />
-    <g stroke="#0e0b08" strokeWidth="2.4" strokeLinecap="round">
-      <path d="M9 11h14M9 16h14M9 21h8" />
-    </g>
-  </svg>
-)
 
 const links = [
   { id: 'route', label: 'The route' },
@@ -45,7 +38,7 @@ function Nav() {
   return (
     <nav className={`island${open ? ' is-open' : ''}`} aria-label="Main">
       <Link className="island__brand" to="/" aria-label="Undefiled Religion, home">
-        {mark}
+        <Mark size={20} className="island__logo" />
         <span className="island__name">Undefiled Religion</span>
       </Link>
 

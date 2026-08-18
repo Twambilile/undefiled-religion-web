@@ -7,6 +7,7 @@ import Glance from '../sections/Glance'
 import Vision from '../sections/Vision'
 import Covers from '../sections/Covers'
 import Calculator from '../sections/Calculator'
+import TheMark from '../sections/TheMark'
 import Close from '../sections/Close'
 
 /**
@@ -27,6 +28,7 @@ export default function Home() {
       <Vision />
       <Covers />
       <Calculator />
+      <TheMark />
       <Close />
     </main>
   )

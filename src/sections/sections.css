@@ -882,6 +882,45 @@
   max-width: 44rem;
 }
 
+/* ----------------------------------------------------------------- the mark */
+
+.themark__grid {
+  display: grid;
+  gap: clamp(2.5rem, 7vw, 5rem);
+  margin-top: clamp(3rem, 8vh, 5rem);
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  .themark__grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+}
+
+.themark__stage {
+  display: flex;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  color: var(--fg);
+}
+
+.themark__body > p {
+  max-width: 34em;
+}
+
+.themark__quote {
+  margin: clamp(2rem, 5vh, 3rem) 0;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--accent);
+}
+
+.themark__verse {
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.7rem);
+  line-height: 1.32;
+  margin: 0 0 0.8rem;
+  max-width: 24em;
+}
+
 /* -------------------------------------------------------------------- story */
 
 .story__grid {

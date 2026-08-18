@@ -117,6 +117,13 @@ export function useGsap(
 }
 
 /** Adds `is-in` when the element arrives, takes it off on the way back up. */
+export function useInViewClass(
+  ref: React.RefObject<HTMLElement | null>,
+  start = 'top 88%',
+) {
+  return useInView(ref, start)
+}
+
 function useInView(
   ref: React.RefObject<HTMLElement | null>,
   start = 'top 88%',
