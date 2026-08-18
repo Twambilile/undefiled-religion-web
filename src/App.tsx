@@ -1,5 +1,5 @@
 import './sections/sections.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { scrollToId, useLenis } from './lib/motion'
@@ -37,9 +37,12 @@ const links = [
 function Nav() {
   const { pathname } = useLocation()
   const onLedger = pathname === '/ledger'
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => setOpen(false), [pathname])
 
   return (
-    <nav className="island" aria-label="Main">
+    <nav className={`island${open ? ' is-open' : ''}`} aria-label="Main">
       <Link className="island__brand" to="/" aria-label="Undefiled Religion, home">
         {mark}
         <span className="island__name">Undefiled Religion</span>
@@ -72,6 +75,44 @@ function Nav() {
       <Link className="island__cta" to={onLedger ? '/' : '/ledger'}>
         {onLedger ? 'The project' : 'The ledger'}
       </Link>
+
+      <button
+        type="button"
+        className="island__burger"
+        aria-expanded={open}
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        onClick={() => setOpen((o) => !o)}
+      >
+        <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">
+          {open ? (
+            <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+          ) : (
+            <path d="M3.5 6.5h13M3.5 13.5h13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+          )}
+        </svg>
+      </button>
+
+      {open ? (
+        <div className="island__sheet">
+          {!onLedger &&
+            links.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setOpen(false)
+                  scrollToId(l.id)
+                }}
+              >
+                {l.label}
+              </a>
+            ))}
+          <Link className="island__cta" to={onLedger ? '/' : '/ledger'}>
+            {onLedger ? 'The project' : 'The ledger'}
+          </Link>
+        </div>
+      ) : null}
     </nav>
   )
 }
@@ -93,15 +134,12 @@ export default function App() {
               record, which has not been published yet.
             </p>
           ) : null}
-          <div className="bezel" aria-hidden="true" />
           <Nav />
-          <div className="frame">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/ledger" element={<LedgerPage />} />
-              <Route path="*" element={<Home />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/ledger" element={<LedgerPage />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
         </CurrencyProvider>
       </ThemeProvider>
     </BrowserRouter>

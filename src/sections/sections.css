@@ -128,56 +128,67 @@
 /* ------------------------------------------------------- the dynamic island */
 
 /*
- * The island is not a floating capsule with a margin above it. It is a notch
- * hanging out of a bezel: a full width band across the top of the page in the
- * same colour, with the pill pinned to the very top and only its bottom corners
- * rounded. Band and pill are one continuous shape, so the pill reads as carved
- * out of the top edge rather than parked below it. The content beneath is a
- * card with rounded top corners, which is what makes the band read as a frame.
+ * Taken from the reference, which I inspected rather than guessed at. Three
+ * things make it work, and I had the first one wrong before:
+ *
+ * 1. The pill is pinned to top: 0 with SQUARE top corners and rounded bottom
+ *    ones, so it grows out of the top edge instead of floating below it.
+ * 2. Two small concave fillets sit just outside its left and right edges and
+ *    curve the pill back into the top of the page. That is the crafted detail
+ *    and the reason it reads as one carved shape rather than a stuck-on bar.
+ * 3. It is solid, not frosted. No blur anywhere on it.
  */
-.bezel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--bezel-h);
-  z-index: 39;
-  background: var(--bezel);
-  pointer-events: none;
-}
-
 .island {
+  --pill: #0b0806;
+  --fillet: 18px;
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 40;
   width: max-content;
-  max-width: calc(100% - 1.5rem);
+  max-width: calc(100% - 2.5rem);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  /* the extra top padding is the part that lives up inside the band */
-  padding: calc(var(--bezel-h) - 1.85rem) 0.4rem 0.5rem 0.9rem;
-  border-radius: 0 0 1.35rem 1.35rem;
-  background: var(--bezel);
-  border: 0;
-  box-shadow:
-    0 1px 0 rgba(244, 239, 230, 0.09) inset,
-    0 14px 30px -14px rgba(0, 0, 0, 0.8);
+  padding: 0.5rem 0.5rem 0.5rem 0.9rem;
+  border-radius: 0 0 1.15rem 1.15rem;
+  background: var(--pill);
   color: var(--light);
   font-family: var(--mono);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  transition: border-radius var(--t-base) ease;
 }
 
-/* the content card the band frames */
-.frame {
-  border-radius: 1.5rem 1.5rem 0 0;
-  overflow: clip;
-  margin-top: var(--bezel-h);
-  background: var(--dark);
+/* the concave corners that join the pill to the top edge */
+.island::before,
+.island::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: var(--fillet);
+  height: var(--fillet);
+  pointer-events: none;
+}
+
+.island::before {
+  left: calc(var(--fillet) * -1);
+  background: radial-gradient(
+    circle at 0 100%,
+    transparent 0 var(--fillet),
+    var(--pill) var(--fillet)
+  );
+}
+
+.island::after {
+  right: calc(var(--fillet) * -1);
+  background: radial-gradient(
+    circle at 100% 100%,
+    transparent 0 var(--fillet),
+    var(--pill) var(--fillet)
+  );
 }
 
 .island__brand {
@@ -261,9 +272,71 @@
   background: var(--ochre);
 }
 
+/* the menu button, phones only */
+.island__burger {
+  display: none;
+  place-items: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 999px;
+  padding: 0;
+  border: 0;
+  background: rgba(244, 239, 230, 0.08);
+  color: var(--light);
+  cursor: pointer;
+}
+
+/* the sheet the island opens into, stacked large as in the reference */
+.island__sheet {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.75rem 0.25rem 0.25rem;
+}
+
+.island__sheet a {
+  color: var(--light-2);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  padding: 0.45rem 0.5rem;
+}
+
+.island__sheet .island__cta {
+  margin-top: 0.75rem;
+  text-align: center;
+  padding: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
 @media (max-width: 900px) {
   .island__links {
     display: none;
+  }
+  .island__burger {
+    display: grid;
+  }
+  .island > .island__cta {
+    display: none;
+  }
+
+  /* open: the pill grows into a panel, same element, same corners */
+  .island.is-open {
+    width: calc(100% - 2.5rem);
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-radius: 0 0 1.6rem 1.6rem;
+    padding-bottom: 0.9rem;
+  }
+  .island.is-open .island__sheet {
+    display: flex;
+  }
+  .island.is-open .island__brand {
+    flex: 1;
   }
 }
 
@@ -271,8 +344,8 @@
   .island__name {
     display: none;
   }
-  .island {
-    padding-left: 0.5rem;
+  .island.is-open .island__name {
+    display: inline;
   }
 }
 
@@ -752,8 +825,8 @@
 
 .ledger__running {
   position: sticky;
-  /* clears the bezel the island hangs from */
-  top: calc(var(--bezel-h) + 0.5rem);
+  /* clears the island hanging off the top edge */
+  top: 3.6rem;
   z-index: 4;
   display: flex;
   flex-wrap: wrap;

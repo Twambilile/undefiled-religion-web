@@ -182,6 +182,7 @@ const mwkFmt = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 })
 const gbpFmt = new Intl.NumberFormat('en-GB', {
   style: 'currency',
   currency: 'GBP',
+  currencyDisplay: 'narrowSymbol',
   maximumFractionDigits: 0,
 })
 
@@ -189,9 +190,13 @@ const fmtCache = new Map<string, Intl.NumberFormat>()
 function fmtFor(code: string): Intl.NumberFormat {
   let f = fmtCache.get(code)
   if (!f) {
+    // narrowSymbol turns "US$7,518" into "$7,518", but it also collapses the
+    // Canadian and Australian dollar to a bare "$", so those keep the qualifier
+    const ambiguous = code === 'CAD' || code === 'AUD'
     f = new Intl.NumberFormat('en-GB', {
       style: 'currency',
       currency: code,
+      currencyDisplay: ambiguous ? 'symbol' : 'narrowSymbol',
       maximumFractionDigits: 0,
     })
     fmtCache.set(code, f)
