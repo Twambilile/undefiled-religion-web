@@ -15,7 +15,7 @@ export default function Close() {
       <div>
         <Reveal className="signoff signoff--lead">
           <Link to="/" className="signoff__link" aria-label="Undefiled Religion, home">
-            <Mark size={52} />
+            <Mark size={84} />
           </Link>
         </Reveal>
 

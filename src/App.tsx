@@ -38,7 +38,7 @@ function Nav() {
   return (
     <nav className={`island${open ? ' is-open' : ''}`} aria-label="Main">
       <Link className="island__brand" to="/" aria-label="Undefiled Religion, home">
-        <Mark size={20} className="island__logo" />
+        <Mark size={26} className="island__logo" />
         <span className="island__name">Undefiled Religion</span>
       </Link>
 

@@ -39,7 +39,7 @@ export default function Hero() {
       <div className="grain" aria-hidden="true" />
 
       <p className="hero__mark" data-hero-fade>
-        <Mark size={38} className="mark--hover" />
+        <Mark size={72} className="mark--hover" />
       </p>
 
       <p className="eyebrow" data-hero-fade>

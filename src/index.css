@@ -313,18 +313,26 @@ button:hover .mark__bit,
 }
 
 @keyframes mark-turn {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
   40% {
+    opacity: 1;
     transform: rotate(160deg) scale(0.82);
   }
   100% {
+    opacity: 1;
     transform: rotate(360deg) scale(1);
   }
 }
 
-/* the nav mark plays once when the page loads */
+/* The nav mark plays once when the page loads. The entrance keeps its hidden
+   state inside the keyframes rather than as a base opacity: with `opacity: 0`
+   sitting on the element, the hover animation replaced the entrance one, the
+   base showed through, and the mark blanked the moment you pointed at it. */
 .island__logo .mark__bit {
-  opacity: 0;
-  animation: mark-in 0.7s cubic-bezier(0.16, 1.1, 0.3, 1) forwards;
+  animation: mark-in 0.7s cubic-bezier(0.16, 1.1, 0.3, 1) both;
 }
 
 @keyframes mark-in {

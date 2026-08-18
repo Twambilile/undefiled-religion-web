@@ -31,7 +31,7 @@ export default function LedgerPage() {
 
         <Reveal className="signoff">
           <Link to="/" className="signoff__link" aria-label="Undefiled Religion, home">
-            <Mark size={44} />
+            <Mark size={68} />
           </Link>
         </Reveal>
       </section>

@@ -18,7 +18,7 @@ export default function TheMark() {
       <div className="themark__grid">
         <div className="themark__stage" ref={holder}>
           <Mark
-            size={220}
+            size={280}
             animated={!motionOff()}
             title="The Undefiled Religion mark: nine different shapes arranged on one grid"
           />

@@ -24,7 +24,7 @@ export default function Curtain() {
 
   return (
     <div className="curtain" aria-hidden="true">
-      <Mark size={110} className="curtain__mark" />
+      <Mark size={140} className="curtain__mark" />
     </div>
   )
 }
