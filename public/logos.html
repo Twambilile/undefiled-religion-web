@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Undefiled Religion · logo drafts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f2ece2;
+        --ink: #14100c;
+        --ink-2: #4a4137;
+        --line: rgba(20, 16, 12, 0.16);
+        --ochre: #8a4310;
+        --mark: #14100c;
+        --serif: 'Fraunces', Georgia, serif;
+        --mono: ui-monospace, 'SF Mono', 'Roboto Mono', monospace;
+      }
+      [data-t='dark'] {
+        --paper: #0e0b08;
+        --ink: #f4efe6;
+        --ink-2: #b7ab99;
+        --line: rgba(244, 239, 230, 0.18);
+        --ochre: #e8a24a;
+        --mark: #f4efe6;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--serif);
+        font-weight: 300;
+        transition: background 0.25s, color 0.25s;
+      }
+      header {
+        padding: 3.5rem clamp(1.25rem, 5vw, 5rem) 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: end;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+      }
+      h1 { font-weight: 300; font-size: clamp(1.8rem, 1.2rem + 2vw, 3rem); margin: 0 0 0.4rem; letter-spacing: -0.02em; }
+      .sub { color: var(--ink-2); margin: 0; max-width: 46ch; font-size: 0.98rem; }
+      .controls { display: flex; gap: 0.6rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+      button {
+        appearance: none; background: none; color: inherit; font: inherit;
+        border: 1px solid var(--line); border-radius: 999px; padding: 0.5rem 1rem; cursor: pointer;
+      }
+      button:hover { border-color: var(--ink); }
+      .grid {
+        display: grid; gap: 1px; background: var(--line);
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        border-bottom: 1px solid var(--line);
+      }
+      .cell { background: var(--paper); padding: 2.5rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+      .stage { min-height: 130px; display: flex; align-items: center; justify-content: center; }
+      .meta { border-top: 1px solid var(--line); padding-top: 0.9rem; }
+      .n { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--ochre); text-transform: uppercase; }
+      .name { font-size: 1.25rem; margin: 0.35rem 0 0.3rem; }
+      .why { color: var(--ink-2); font-size: 0.9rem; margin: 0; line-height: 1.5; }
+      .lockup { display: flex; align-items: center; gap: 0.75rem; margin-top: 1.1rem; }
+      .lockup .wordmark { font-size: 1.05rem; letter-spacing: -0.01em; white-space: nowrap; }
+      .lockup .wordmark small { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-2); margin-top: 0.15rem; }
+      svg { display: block; overflow: visible; }
+      footer { padding: 3rem clamp(1.25rem, 5vw, 5rem) 5rem; color: var(--ink-2); font-size: 0.9rem; max-width: 60ch; }
+      .scale { display: flex; align-items: center; gap: 1.25rem; margin-top: 0.4rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Logo drafts</h1>
+        <p class="sub">
+          Sixteen marks for Undefiled Religion. Each one is drawn from something real in
+          the project: the ledger, the verse, the maize, the two of you. Toggle the
+          background and the size to judge them properly, then tell me the numbers you
+          like and I will take those further.
+        </p>
+      </div>
+      <div class="controls">
+        <button onclick="document.documentElement.dataset.t = document.documentElement.dataset.t === 'dark' ? '' : 'dark'">
+          Flip background
+        </button>
+        <button onclick="document.body.classList.toggle('small')">Small sizes</button>
+      </div>
+    </header>
+
+    <div class="grid" id="grid"></div>
+
+    <footer>
+      Every mark is a single flat colour so it works stamped on a receipt, a shirt, or a
+      favicon. Nothing here uses a photograph, a person, or a cross, which keeps it honest
+      about what the project is and avoids implying a church or a registered charity.
+    </footer>
+
+    <script>
+      const marks = [
+        {
+          n: 'The tally',
+          why: 'Four ruled months and a fifth still running. The short stroke is the month you are in, not a failure.',
+          svg: `<g stroke="var(--mark)" stroke-width="6" stroke-linecap="square">
+                  <path d="M14 18h72M14 42h72M14 66h72M14 90h44"/>
+                </g>`,
+        },
+        {
+          n: 'Undefiled',
+          why: 'A drop of water with nothing settled in it. Undefiled means unmixed, and this is the plainest way to draw that.',
+          svg: `<path d="M50 8C50 8 84 46 84 68a34 34 0 1 1-68 0C16 46 50 8 50 8Z" fill="none" stroke="var(--mark)" stroke-width="6"/>
+                <path d="M50 40C50 40 68 60 68 71a18 18 0 0 1-36 0c0-11 18-31 18-31Z" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The open ledger',
+          why: 'Two pages meeting, which also reads as a roof. A record and a shelter in one shape.',
+          svg: `<path d="M50 30 12 62v28M50 30l38 32v28" fill="none" stroke="var(--mark)" stroke-width="6" stroke-linejoin="round"/>
+                <g stroke="var(--ochre)" stroke-width="4" stroke-linecap="round">
+                  <path d="M24 74h18M24 86h18M58 74h18M58 86h10"/>
+                </g>`,
+        },
+        {
+          n: 'Two hands',
+          why: 'Two curves turned towards each other and deliberately not touching. What passes between them is the point, not the pair.',
+          svg: `<path d="M40 16a38 38 0 0 0 0 72" fill="none" stroke="var(--mark)" stroke-width="7" stroke-linecap="round"/>
+                <path d="M60 16a38 38 0 0 1 0 72" fill="none" stroke="var(--mark)" stroke-width="7" stroke-linecap="round"/>
+                <circle cx="50" cy="52" r="9" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'Maize rule',
+          why: 'A maize stalk whose leaves are ledger lines. The food and the record growing on the same stem.',
+          svg: `<path d="M50 96V14" stroke="var(--mark)" stroke-width="7" stroke-linecap="round"/>
+                <g fill="var(--ochre)">
+                  <path d="M50 30c16-2 26 4 30 16-16 3-26-3-30-16Z"/>
+                  <path d="M50 54c-16-2-26 4-30 16 16 3 26-3 30-16Z"/>
+                  <path d="M50 74c16-2 26 4 30 16-16 3-26-3-30-16Z"/>
+                </g>`,
+        },
+        {
+          n: 'Running total',
+          why: 'Bars that step up, the shape the record actually makes when you scroll it end to end.',
+          svg: `<g fill="var(--mark)">
+                  <rect x="12" y="70" width="14" height="26" rx="3"/>
+                  <rect x="34" y="54" width="14" height="42" rx="3"/>
+                  <rect x="56" y="34" width="14" height="62" rx="3"/>
+                </g>
+                <rect x="78" y="12" width="14" height="84" rx="3" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The receipt',
+          why: 'A torn slip with a line still climbing. Everything on this site is built from these.',
+          svg: `<path d="M22 12h56v76l-8-7-8 7-8-7-8 7-8-7-8 7Z" fill="none" stroke="var(--mark)" stroke-width="6" stroke-linejoin="round"/>
+                <g stroke="var(--ochre)" stroke-width="5" stroke-linecap="round">
+                  <path d="M36 34h28M36 50h28M36 66h16"/>
+                </g>`,
+        },
+        {
+          n: 'Dawn rule',
+          why: 'A sun coming up over a ruled baseline. Warm light, but held to a straight line of accounting.',
+          svg: `<path d="M18 68a32 32 0 0 1 64 0" fill="none" stroke="var(--ochre)" stroke-width="7" stroke-linecap="round"/>
+                <path d="M8 82h84" stroke="var(--mark)" stroke-width="7" stroke-linecap="round"/>
+                <path d="M28 92h44" stroke="var(--mark)" stroke-width="7" stroke-linecap="round"/>`,
+        },
+        {
+          n: 'U R monogram',
+          why: 'The initials cut as one continuous editorial stroke, set in the same serif as the site.',
+          svg: `<text x="34" y="80" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="72" font-weight="300" fill="var(--mark)">U</text>
+                <text x="68" y="80" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="72" font-weight="300" fill="var(--ochre)">R</text>
+                <path d="M12 92h76" stroke="var(--mark)" stroke-width="5" stroke-linecap="round"/>`,
+        },
+        {
+          n: 'Unbroken line',
+          why: 'One line that folds four times and never crosses itself. Nothing tangled, nothing hidden.',
+          svg: `<path d="M14 22h72v22H14v22h72v22" fill="none" stroke="var(--mark)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`,
+        },
+        {
+          n: 'Shelter row',
+          why: 'A single ledger row that lifts at one end into a roofline. The money becoming a home.',
+          svg: `<path d="M10 76h34l16-30 16 30h14" fill="none" stroke="var(--mark)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 92h80" stroke="var(--ochre)" stroke-width="6" stroke-linecap="round"/>`,
+        },
+        {
+          n: 'Still water',
+          why: 'Rings on clear water. One small act, and the rings keep going out past where you can see.',
+          svg: `<g fill="none" stroke="var(--mark)" stroke-width="5">
+                  <ellipse cx="50" cy="58" rx="12" ry="5"/>
+                  <ellipse cx="50" cy="58" rx="26" ry="11" opacity="0.6"/>
+                  <ellipse cx="50" cy="58" rx="40" ry="17" opacity="0.3"/>
+                </g>
+                <circle cx="50" cy="26" r="6" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The visit',
+          why: 'Two doorways, one open. The verse is about turning up, not about announcing anything.',
+          svg: `<path d="M16 92V34a16 16 0 0 1 32 0v58" fill="none" stroke="var(--mark)" stroke-width="6"/>
+                <path d="M56 92V34a16 16 0 0 1 32 0v58" fill="none" stroke="var(--ochre)" stroke-width="6" stroke-dasharray="0 0"/>
+                <path d="M56 92V50h32" fill="none" stroke="var(--ochre)" stroke-width="6"/>`,
+        },
+        {
+          n: 'Seed and rule',
+          why: 'A seed sitting on the line. School fees are the cheapest thing on the list and the one that keeps growing.',
+          svg: `<path d="M12 78h76" stroke="var(--mark)" stroke-width="6" stroke-linecap="round"/>
+                <path d="M50 78c0-26 10-40 26-46-2 26-12 42-26 46Z" fill="var(--ochre)"/>
+                <path d="M50 78c0-16-6-26-18-30 1 17 7 27 18 30Z" fill="var(--mark)"/>`,
+        },
+        {
+          n: 'Fifteen',
+          why: 'A block of small marks, one for each family, the fifteenth picked out. Reads as a crowd and as a count.',
+          svg: `<g fill="var(--mark)">
+                  <rect x="14" y="24" width="10" height="10" rx="2"/><rect x="32" y="24" width="10" height="10" rx="2"/><rect x="50" y="24" width="10" height="10" rx="2"/><rect x="68" y="24" width="10" height="10" rx="2"/><rect x="86" y="24" width="10" height="10" rx="2"/>
+                  <rect x="14" y="45" width="10" height="10" rx="2"/><rect x="32" y="45" width="10" height="10" rx="2"/><rect x="50" y="45" width="10" height="10" rx="2"/><rect x="68" y="45" width="10" height="10" rx="2"/><rect x="86" y="45" width="10" height="10" rx="2"/>
+                  <rect x="14" y="66" width="10" height="10" rx="2"/><rect x="32" y="66" width="10" height="10" rx="2"/><rect x="50" y="66" width="10" height="10" rx="2"/><rect x="68" y="66" width="10" height="10" rx="2"/>
+                </g>
+                <rect x="86" y="66" width="10" height="10" rx="2" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The lake',
+          why: 'The long shape of the lake read as a single downstroke, with the record ruled across it.',
+          svg: `<path d="M46 10c14 14 18 34 12 56-5 18-14 26-20 26-8 0-12-12-8-30C34 40 38 22 46 10Z" fill="var(--mark)"/>
+                <g stroke="var(--ochre)" stroke-width="5" stroke-linecap="round">
+                  <path d="M58 42h32M58 60h24M58 78h32"/>
+                </g>`,
+        },
+      ]
+
+      const grid = document.getElementById('grid')
+      grid.innerHTML = marks
+        .map(
+          (m, i) => `
+        <div class="cell">
+          <div class="stage">
+            <svg viewBox="0 0 100 104" width="104" height="108">${m.svg}</svg>
+          </div>
+          <div class="meta">
+            <span class="n">${String(i + 1).padStart(2, '0')}</span>
+            <p class="name">${m.n}</p>
+            <p class="why">${m.why}</p>
+            <div class="lockup">
+              <svg viewBox="0 0 100 104" width="30" height="31">${m.svg}</svg>
+              <span class="wordmark">Undefiled Religion<small>Malawi</small></span>
+            </div>
+            <div class="scale">
+              <svg viewBox="0 0 100 104" width="18" height="19">${m.svg}</svg>
+              <svg viewBox="0 0 100 104" width="24" height="25">${m.svg}</svg>
+              <svg viewBox="0 0 100 104" width="44" height="46">${m.svg}</svg>
+            </div>
+          </div>
+        </div>`,
+        )
+        .join('')
+    </script>
+  </body>
+</html>
