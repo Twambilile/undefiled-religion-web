@@ -58,8 +58,15 @@
   background: #0b0906;
 }
 
+/* The paper plate is a photograph of light paper. Multiplied over a near-black
+   surface it wins and turns the section back to cream, taking the light text
+   with it, so in dark mode it goes. */
+:root[data-theme='dark'] .plane--paper {
+  display: none;
+}
+
 html {
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 6rem;
 }
 
 .surface--dark {

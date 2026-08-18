@@ -72,13 +72,13 @@ export default function Flow() {
   }, ref as React.RefObject<HTMLElement>)
 
   return (
-    <section className="section surface--dark flow" id="how" ref={ref}>
+    <section className="section surface--dark flow" id="route" ref={ref}>
       <div className="planes">
         <Plane speed={0.08} src="/planes/cloth.webp" className="plane plane--cloth" scale={1.1} />
       </div>
       <div className="grain" aria-hidden="true" />
 
-      <p className="eyebrow">How it works</p>
+      <p className="eyebrow">Ask to delivery</p>
       <MaskedLines as="h2" text="A budget in, the money out, the shopping done." className="h2" />
 
       <div className="flow__stage">

@@ -60,11 +60,33 @@ function ensureReady() {
   watchdog()
 }
 
+let lenisRef: Lenis | null = null
+
+/** How far below the top of the viewport a jumped-to section should land. */
+const NAV_CLEARANCE = 96
+
+/**
+ * Glides to a section instead of teleporting. Uses Lenis when it is running so
+ * the easing matches the rest of the scrolling, and falls back to the browser's
+ * own smooth scroll otherwise.
+ */
+export function scrollToId(id: string) {
+  const el = document.getElementById(id)
+  if (!el) return
+  if (lenisRef && !motionOff()) {
+    lenisRef.scrollTo(el, { offset: -NAV_CLEARANCE, duration: 1.4 })
+    return
+  }
+  const top = el.getBoundingClientRect().top + window.scrollY - NAV_CLEARANCE
+  window.scrollTo({ top, behavior: motionOff() ? 'auto' : 'smooth' })
+}
+
 export function useLenis() {
   useEffect(() => {
     ensureReady()
     if (motionOff() || flag('nosmooth')) return
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true })
+    lenisRef = lenis
     lenis.on('scroll', ScrollTrigger.update)
     const tick = (t: number) => lenis.raf(t * 1000)
     gsap.ticker.add(tick)
@@ -72,6 +94,7 @@ export function useLenis() {
     return () => {
       gsap.ticker.remove(tick)
       lenis.destroy()
+      lenisRef = null
     }
   }, [])
 }

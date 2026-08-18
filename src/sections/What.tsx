@@ -5,7 +5,7 @@ const facts = [
   ['Who we help', `Around ${familiesSupportedNow} families we support regularly, plus others who reach out when they are stuck. Someone needs school fees, or medicine, or food for the month, and we help where we can.`],
   ['What it pays for', 'School fees and exam fees, maize flour, cooking oil, eggs, soap, uniforms, school books, transport, and medical care when someone falls ill.'],
   ['How it is paid for', 'Out of our own pockets, the two of us, since 2022. We have never run an appeal or a fundraiser. We are only now letting other people help.'],
-  ['How it works', 'A budget comes to us from Malawi. We send the money over. The people on the ground collect it, buy everything on the list, and send back what they spent.'],
+  ['How the money travels', 'A budget comes to us from Malawi. We send the money over. The people on the ground collect it, buy everything on the list, and send back what they spent.'],
 ]
 
 export default function What() {
