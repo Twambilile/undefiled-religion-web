@@ -3,6 +3,6 @@
   "startDate": "2022-10-10",
   "familiesSupportedNow": 15,
   "completeFrom": "2024-07",
-  "lastUpdated": "2026-08-17",
+  "lastUpdated": "2026-08-18",
   "_readme": "placeholder: set true only if the rows in ledger.csv are stand-ins, which turns on a banner saying so. completeFrom is the month from which every transfer has a receipt behind it; anything before that was reconstructed from messages and is partial, which the site states on the page. familiesSupportedNow is the current caseload, stated separately from the ledger because most transfers are pooled and serve several families at once."
 }

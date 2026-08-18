@@ -1,5 +1,5 @@
 month,ref,category,amount,currency,note
-2023-02,Coordinator B,School fees,43.60,GBP,Monthly fees and exercise books
+2023-02,Coordinator B,School fees,43.6,GBP,Monthly fees and exercise books
 2023-02,Coordinator B,Pocket money,12.96,GBP,
 2023-02,Coordinator B,Pocket money,16,GBP,
 2023-03,Coordinator B,Monthly budget,35000,MWK,Split between a school trip and three households
@@ -73,3 +73,16 @@ month,ref,category,amount,currency,note
 2026-01,Coordinator B,Pooled transfer,605690,MWK,
 2026-01,Coordinator B,Pooled transfer,443445,MWK,
 2026-02,Coordinator B,Pooled transfer,205860,MWK,
+2026-03,Coordinator B,Pooled transfer,470000,MWK,Moving to a new home
+2026-03,Coordinator A,Pooled transfer,85000,MWK,Transport
+2026-04,Coordinator A,Pooled transfer,190000,MWK,"Beddings, Rental , School utilities"
+2026-04,Coordinator B,Pooled transfer,194000,MWK,Food
+2026-04,Coordinator A,Pooled transfer,639400,MWK,Tuition Fees
+2026-04,Coordinator B,Pooled transfer,364000,MWK,Food
+2026-05,Coordinator A,Pooled transfer,430000,MWK,Rent + Food + Helper salaries
+2026-06,Coordinator B,Pooled transfer,232000,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2026-06,Coordinator A,Pooled transfer,345000,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2026-07,Coordinator A,Pooled transfer,216000,MWK,"Maize flour, cooking oil, sugar, eggs and soya pieces"
+2026-07,Coordinator B,Pooled transfer,400000,MWK,"Food, helper salary, upkeeps"
+2026-08,Coordinator B,Pooled transfer,294000,MWK,"Food, helper salary, upkeeps"
+2026-08,Coordinator A,Pooled transfer,109000,MWK,"Maize flour, cooking oil, sugar, eggs and transport"
