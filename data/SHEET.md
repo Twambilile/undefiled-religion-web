@@ -81,3 +81,21 @@ SHEET_CSV_URL=https://docs.google.com/spreadsheets/d/e/2PACX-.../pub?output=csv
 ```
 
 That file is gitignored and never leaves your machine.
+
+## Exchange rates
+
+Rates refresh themselves every morning from open.er-api.com, alongside the sheet
+pull. Nothing to do.
+
+There are two kinds of rate and they behave differently on purpose:
+
+- **The per-year rates in `gbpToMwk` are frozen.** A payment made in 2023 is
+  worth what it was worth in 2023. Re-converting the history every time the
+  kwacha moves would quietly rewrite the record, so those stay put. Correct them
+  by hand if you ever get the rates you actually received.
+- **The live rate and the cross-rates refresh daily.** They are used for money
+  being given *today*: the calculator, the "what it buys" prices, and the
+  currency switch.
+
+If the rates API is down the publish carries on with the rates already on file,
+and the site says when they were last checked.

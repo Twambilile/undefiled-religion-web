@@ -41,6 +41,12 @@ jobs:
           SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
         run: npm run sync
 
+      # Live exchange rates for today's money. Never touches the per-year rates
+      # the record is converted with. Failure here is not fatal.
+      - name: Sync exchange rates
+        run: npm run rates
+        continue-on-error: true
+
       # Commit the pulled record so git history stays the audit trail.
       - name: Commit any change to the record
         run: |
@@ -48,7 +54,7 @@ jobs:
             git config user.name "Undefiled Religion bot"
             git config user.email "actions@github.com"
             git add data/
-            git commit -m "Record updated from the sheet"
+            git commit -m "Record and rates updated"
             git push
           else
             echo "No change to the record."

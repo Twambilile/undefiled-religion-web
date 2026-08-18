@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "sync": "node scripts/sync-sheet.mjs",
     "sync:dry": "node scripts/sync-sheet.mjs --dry-run",
-    "publish": "npm run sync && npm run build"
+    "publish": "npm run sync && npm run rates && npm run build",
+    "rates": "node scripts/sync-rates.mjs"
   },
   "dependencies": {
     "gsap": "^3.15.0",

@@ -1,13 +1,13 @@
 import { MaskedLines, Plane, Reveal } from '../lib/motion'
 import { useCurrency } from '../lib/currency'
-import { rateFor, show } from '../data/ledger'
+import { liveGbpToMwk, ratesUpdated, show } from '../data/ledger'
 
 /**
  * Real costs, taken from the budgets in the record and rounded to a round
  * number. Stored in kwacha, the currency they were quoted in, and shown in
  * whichever view is active. The pound figure uses the current year's rate.
  */
-const rate = rateFor(2026)
+const rate = liveGbpToMwk
 const covers = [
   { mwk: 40000, t: 'A 25kg bag of maize flour', b: 'The staple. It is on almost every budget we get.' },
   { mwk: 60000, t: 'A month of food for a household', b: 'Flour, cooking oil, eggs, sugar and soap. The list a family sends when the cupboard is empty.' },
@@ -53,8 +53,9 @@ export default function Covers() {
 
       <Reveal as="p" className="dim covers__note">
         These are prices from our own budgets, rounded off. Kwacha is what actually gets
-        spent. The pound figures are rough, at about {new Intl.NumberFormat('en-GB').format(rate)} kwacha
-        to the pound, and they move as the rate moves.
+        spent. Other currencies use the live rate, about{' '}
+        {new Intl.NumberFormat('en-GB').format(rate)} kwacha to the pound
+        {ratesUpdated ? `, last checked ${ratesUpdated}` : ''}.
       </Reveal>
     </section>
   )

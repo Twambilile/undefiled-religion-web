@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 import { MaskedLines, Reveal } from '../lib/motion'
-import { perPound, rateFor } from '../data/ledger'
+import { liveGbpToMwk, perPound, ratesUpdated } from '../data/ledger'
 
-/** Kwacha per one unit of the chosen currency, via the pound. */
-const mwkPerUnit = (code: string) => rateFor(2026) / perPound(code)
+/** Kwacha per one unit of the chosen currency today, via the pound. */
+const mwkPerUnit = (code: string) => liveGbpToMwk / perPound(code)
 
 /**
  * This one stands on its own rather than following the site-wide switch. The
@@ -185,9 +185,10 @@ export default function Calculator() {
       </div>
 
       <Reveal as="p" className="dim calc__note">
-        Worked out from the real prices in our record. Kwacha is what we actually spend;
-        the other currencies convert at roughly today's rate and move as it moves. It is
-        a guide to what an amount does, not a checkout.
+        Worked out from the real prices in our record. Kwacha is what we actually spend.
+        Other currencies convert at the live rate{ratesUpdated ? `, last checked ${ratesUpdated}` : ''},
+        so this moves as the kwacha moves. It is a guide to what an amount does, not a
+        checkout.
       </Reveal>
     </section>
   )

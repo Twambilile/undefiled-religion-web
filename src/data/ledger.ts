@@ -46,10 +46,19 @@ export const completeFrom: string = meta.completeFrom
 export const lastUpdated: string = meta.lastUpdated
 
 const gbpToMwk = rates.gbpToMwk as Record<string, number>
-const fallbackRate = 2600
 
+/** Today's rate, refreshed daily by scripts/sync-rates.mjs. */
+export const liveGbpToMwk: number = (rates as { liveGbpToMwk?: number }).liveGbpToMwk ?? 2400
+export const ratesUpdated: string = (rates as { ratesUpdated?: string }).ratesUpdated ?? ''
+
+/**
+ * The rate for a given year, used to convert the record. These are frozen on
+ * purpose: a payment made in 2023 was worth what it was worth in 2023, and
+ * re-converting the history every time the kwacha moves would quietly rewrite
+ * it. Only money being given today uses the live rate.
+ */
 export function rateFor(year: number | string): number {
-  return gbpToMwk[String(year)] ?? fallbackRate
+  return gbpToMwk[String(year)] ?? liveGbpToMwk
 }
 
 function splitRow(line: string): string[] {
