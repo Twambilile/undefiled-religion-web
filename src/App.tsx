@@ -100,7 +100,7 @@ function Nav() {
             <a
               key={l.id}
               href={`#${l.id}`}
-              style={{ transitionDelay: `${0.04 + i * 0.045}s` }}
+              style={{ transitionDelay: `${0.12 + i * 0.085}s` }}
               onClick={(e) => {
                 e.preventDefault()
                 setOpen(false)
@@ -112,7 +112,7 @@ function Nav() {
           ))}
         <Link
           className="island__cta"
-          style={{ transitionDelay: `${0.04 + links.length * 0.045}s` }}
+          style={{ transitionDelay: `${0.12 + links.length * 0.085}s` }}
           to={onLedger ? '/' : '/ledger'}
         >
           {onLedger ? 'The project' : 'The ledger'}
