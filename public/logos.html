@@ -79,8 +79,9 @@
       <div>
         <h1>Logo drafts</h1>
         <p class="sub">
-          Sixteen marks for Undefiled Religion. Each one is drawn from something real in
-          the project: the ledger, the verse, the maize, the two of you. Toggle the
+          Twenty-six marks for Undefiled Religion. The first sixteen come from something
+          real in the project: the ledger, the verse, the maize, the two of you. The last
+          ten are quieter and come from scripture about giving. Toggle the
           background and the size to judge them properly, then tell me the numbers you
           like and I will take those further.
         </p>
@@ -97,8 +98,10 @@
 
     <footer>
       Every mark is a single flat colour so it works stamped on a receipt, a shirt, or a
-      favicon. Nothing here uses a photograph, a person, or a cross, which keeps it honest
-      about what the project is and avoids implying a church or a registered charity.
+      favicon. Nothing here uses a photograph or a person. There is no cross either, even
+      among the scripture ones: the project is not a church and the mark should not say it
+      is. Bread, oil, a lamp, a cup, a seed and a field carry the same meaning without
+      claiming an institution.
     </footer>
 
     <script>
@@ -224,6 +227,87 @@
           svg: `<path d="M46 10c14 14 18 34 12 56-5 18-14 26-20 26-8 0-12-12-8-30C34 40 38 22 46 10Z" fill="var(--mark)"/>
                 <g stroke="var(--ochre)" stroke-width="5" stroke-linecap="round">
                   <path d="M58 42h32M58 60h24M58 78h32"/>
+                </g>`,
+        },
+        {
+          n: 'The two mites',
+          why: 'The widow put in two small coins and gave more than anyone. Mark 12. Two circles, the smaller one bright, and no attempt to look like a lot.',
+          svg: `<circle cx="40" cy="58" r="19" fill="none" stroke="var(--mark)" stroke-width="6"/>
+                <circle cx="70" cy="42" r="13" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The corner left standing',
+          why: 'Leviticus 19: do not reap to the very edges of your field, leave the corners for the poor and the stranger. The harvest lines stop short and that corner stays.',
+          svg: `<rect x="14" y="18" width="72" height="72" fill="none" stroke="var(--mark)" stroke-width="5"/>
+                <g stroke="var(--mark)" stroke-width="4" stroke-linecap="round">
+                  <path d="M22 32h34M22 44h34M22 56h56M22 68h56M22 80h56"/>
+                </g>
+                <rect x="60" y="24" width="20" height="20" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The open hand',
+          why: 'Deuteronomy 15: open your hand wide. An upturned palm with something still falling into it, drawn as a cup rather than a person.',
+          svg: `<path d="M18 52a32 32 0 0 0 64 0" fill="none" stroke="var(--mark)" stroke-width="7" stroke-linecap="round"/>
+                <path d="M50 10v26" stroke="var(--mark)" stroke-width="6" stroke-linecap="round" opacity="0.25"/>
+                <circle cx="50" cy="30" r="8" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'Bread broken',
+          why: 'One loaf, broken, with the halves just apart. The oldest picture of sharing there is and it needs no explaining.',
+          svg: `<path d="M45 20a32 32 0 1 0 0 64Z" fill="var(--mark)"/>
+                <path d="M55 20a32 32 0 1 1 0 64Z" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The jar that did not run dry',
+          why: '2 Kings 4: the widow’s oil kept pouring while there were still vessels to fill. A plain jar with the last of the light in it.',
+          svg: `<path d="M38 18h24l-3 12c10 6 17 17 17 29a26 26 0 0 1-52 0c0-12 7-23 17-29Z"
+                      fill="none" stroke="var(--mark)" stroke-width="6" stroke-linejoin="round"/>
+                <path d="M50 46c7 8 11 14 11 19a11 11 0 0 1-22 0c0-5 4-11 11-19Z" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'A lamp on its stand',
+          why: 'Matthew 5: nobody lights a lamp and puts it under a bowl. The light is small, and it is simply not hidden.',
+          svg: `<path d="M50 20c8 10 12 17 12 23a12 12 0 0 1-24 0c0-6 4-13 12-23Z" fill="var(--ochre)"/>
+                <path d="M50 55v20M30 92h40M40 92c0-10 4-17 10-17s10 7 10 17"
+                      fill="none" stroke="var(--mark)" stroke-width="6" stroke-linecap="round"/>`,
+        },
+        {
+          n: 'The cup that runs over',
+          why: 'Psalm 23. A plain cup with one drop going over the rim, which is the whole idea: not a full cup, an overflowing one.',
+          svg: `<path d="M28 34h44l-5 40a14 14 0 0 1-14 12h-6a14 14 0 0 1-14-12Z"
+                      fill="none" stroke="var(--mark)" stroke-width="6" stroke-linejoin="round"/>
+                <path d="M28 34h44" stroke="var(--mark)" stroke-width="6" stroke-linecap="round"/>
+                <path d="M76 40c5 6 8 11 8 15a8 8 0 0 1-16 0c0-4 3-9 8-15Z" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The mustard seed',
+          why: 'Matthew 13: the smallest of seeds, and what it becomes. The dot is the gift, the ring is what it turned into, and the ring is mostly empty on purpose.',
+          svg: `<circle cx="50" cy="52" r="36" fill="none" stroke="var(--mark)" stroke-width="4" opacity="0.55"/>
+                <circle cx="50" cy="52" r="8" fill="var(--ochre)"/>`,
+        },
+        {
+          n: 'The sheaf',
+          why: 'Gathered grain, tied once. Ruth gleaned in a field like this, and it is what most of the money still turns into.',
+          svg: `<g stroke="var(--mark)" stroke-width="6" stroke-linecap="round" fill="none">
+                  <path d="M50 94V30M30 94c-2-30 4-48 14-62M70 94c2-30-4-48-14-62"/>
+                </g>
+                <g fill="var(--ochre)">
+                  <ellipse cx="50" cy="22" rx="7" ry="13"/>
+                  <ellipse cx="30" cy="34" rx="6.5" ry="12" transform="rotate(-20 30 34)"/>
+                  <ellipse cx="70" cy="34" rx="6.5" ry="12" transform="rotate(20 70 34)"/>
+                </g>
+                <path d="M32 70h36" stroke="var(--mark)" stroke-width="7" stroke-linecap="round"/>`,
+        },
+        {
+          n: 'The olive branch',
+          why: 'The dove brought one back and it meant the water was going down. Quiet, and about things being alright again rather than about rescue.',
+          svg: `<path d="M20 88C34 64 46 40 54 16" fill="none" stroke="var(--mark)"
+                      stroke-width="6" stroke-linecap="round"/>
+                <g fill="var(--ochre)">
+                  <path d="M46 34c14-14 30-15 36-9-8 14-24 18-36 9Z"/>
+                  <path d="M38 54c-14-12-30-11-35-4 9 13 25 15 35 4Z"/>
+                  <path d="M31 70c14-13 29-14 35-8-8 13-24 17-35 8Z"/>
+                  <path d="M25 84c-12-10-25-9-29-3 8 11 21 12 29 3Z"/>
                 </g>`,
         },
       ]
