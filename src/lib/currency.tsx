@@ -26,11 +26,22 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
 
 export const useCurrency = () => useContext(CurrencyContext)
 
-/** A real select, so it works with a keyboard and on a phone without any fuss. */
+/**
+ * The whole pill is the hit area, not just the letters. The select is laid over
+ * the top of it at full size and made invisible, so a click anywhere, including
+ * on the arrow, opens the native menu. The visible code and chevron sit
+ * underneath as ordinary markup.
+ */
 export function CurrencyToggle() {
   const { view, setView } = useCurrency()
   return (
     <span className="ccy">
+      <span className="ccy__face" aria-hidden="true">
+        <span className="ccy__code">{view}</span>
+        <svg viewBox="0 0 12 8" width="9" height="6" className="ccy__chev">
+          <path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        </svg>
+      </span>
       <select
         className="ccy__select"
         value={view}
@@ -39,13 +50,10 @@ export function CurrencyToggle() {
       >
         {currencies.map((c) => (
           <option key={c.code} value={c.code}>
-            {c.code}
+            {c.code} — {c.label}
           </option>
         ))}
       </select>
-      <svg viewBox="0 0 12 8" width="9" height="6" aria-hidden="true" className="ccy__chev">
-        <path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      </svg>
     </span>
   )
 }

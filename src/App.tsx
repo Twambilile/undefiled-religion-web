@@ -92,27 +92,32 @@ function Nav() {
         </svg>
       </button>
 
-      {open ? (
-        <div className="island__sheet">
-          {!onLedger &&
-            links.map((l) => (
-              <a
-                key={l.id}
-                href={`#${l.id}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  setOpen(false)
-                  scrollToId(l.id)
-                }}
-              >
-                {l.label}
-              </a>
-            ))}
-          <Link className="island__cta" to={onLedger ? '/' : '/ledger'}>
-            {onLedger ? 'The project' : 'The ledger'}
-          </Link>
-        </div>
-      ) : null}
+      {/* always mounted, so opening and closing can be animated rather than
+          snapping between display values */}
+      <div className="island__sheet" inert={!open}>
+        {!onLedger &&
+          links.map((l, i) => (
+            <a
+              key={l.id}
+              href={`#${l.id}`}
+              style={{ transitionDelay: `${0.04 + i * 0.045}s` }}
+              onClick={(e) => {
+                e.preventDefault()
+                setOpen(false)
+                scrollToId(l.id)
+              }}
+            >
+              {l.label}
+            </a>
+          ))}
+        <Link
+          className="island__cta"
+          style={{ transitionDelay: `${0.04 + links.length * 0.045}s` }}
+          to={onLedger ? '/' : '/ledger'}
+        >
+          {onLedger ? 'The project' : 'The ledger'}
+        </Link>
+      </div>
     </nav>
   )
 }

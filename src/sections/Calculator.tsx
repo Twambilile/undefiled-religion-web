@@ -1,10 +1,23 @@
 import { useMemo, useState } from 'react'
 import { MaskedLines, Reveal } from '../lib/motion'
-import { useCurrency } from '../lib/currency'
-import { currencies, perPound, rateFor } from '../data/ledger'
+import { perPound, rateFor } from '../data/ledger'
 
 /** Kwacha per one unit of the chosen currency, via the pound. */
 const mwkPerUnit = (code: string) => rateFor(2026) / perPound(code)
+
+/**
+ * This one stands on its own rather than following the site-wide switch. The
+ * record is in kwacha because that is what gets spent, but somebody working out
+ * what to give is almost certainly thinking in their own money, so it opens in
+ * pounds and offers the few currencies that are actually likely, as buttons you
+ * can see rather than a list you have to open.
+ */
+const GIVE_IN = [
+  { code: 'GBP', symbol: '£' },
+  { code: 'USD', symbol: '$' },
+  { code: 'EUR', symbol: '€' },
+  { code: 'MWK', symbol: 'MK' },
+]
 
 /**
  * Real building blocks, in kwacha, from our own budgets. `share` is the slice
@@ -90,8 +103,7 @@ function headline(amountMwk: number): string | null {
 
 export default function Calculator() {
   const [raw, setRaw] = useState('100')
-  const { view, setView } = useCurrency()
-  const cur = view
+  const [cur, setCur] = useState('GBP')
 
   const value = Math.max(0, Number(raw.replace(/[^0-9.]/g, '')) || 0)
   const amountMwk = value * mwkPerUnit(cur)
@@ -108,19 +120,24 @@ export default function Calculator() {
 
       <div className="calc__panel">
         <div className="calc__input">
+          <div className="calc__switch" role="group" aria-label="Give in">
+            {GIVE_IN.map((c) => (
+              <button
+                key={c.code}
+                type="button"
+                className="calc__seg"
+                aria-pressed={cur === c.code}
+                onClick={() => setCur(c.code)}
+              >
+                {c.code}
+              </button>
+            ))}
+          </div>
+
           <div className="calc__field">
-            <select
-              value={cur}
-              onChange={(e) => setView(e.target.value)}
-              aria-label="Currency"
-              className="calc__select"
-            >
-              {currencies.map((c) => (
-                <option key={c.code} value={c.code}>
-                  {c.code}
-                </option>
-              ))}
-            </select>
+            <span className="calc__sym" aria-hidden="true">
+              {GIVE_IN.find((c) => c.code === cur)?.symbol}
+            </span>
             <input
               id="calc-amount"
               className="calc__amount num"
@@ -131,7 +148,7 @@ export default function Calculator() {
             />
           </div>
           <div className="calc__chips">
-            {(cur === 'MWK' ? [25000, 50000, 100000, 250000] : [25, 50, 100, 250]).map((n) => (
+            {(cur === 'MWK' ? [50000, 100000, 250000, 500000] : [25, 50, 100, 250]).map((n) => (
               <button
                 key={n}
                 type="button"

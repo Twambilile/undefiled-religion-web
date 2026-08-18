@@ -286,31 +286,84 @@
   cursor: pointer;
 }
 
-/* the sheet the island opens into, stacked large as in the reference */
+/*
+ * The sheet the island opens into. It hangs off the bottom of the pill in the
+ * same colour, so the two read as one shape unfolding, and it is always in the
+ * DOM so opening and closing can be animated instead of snapping between
+ * display values. Closed it is scaled flat against the pill and inert, so its
+ * links are not tabbable.
+ */
 .island__sheet {
   display: none;
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  right: 0;
   flex-direction: column;
-  gap: 0.25rem;
-  width: 100%;
-  padding: 0.75rem 0.25rem 0.25rem;
+  gap: 0.1rem;
+  padding: 0.4rem 0.6rem 0.7rem;
+  background: var(--pill);
+  border-radius: 0 0 1.35rem 1.35rem;
+  transform-origin: top center;
+  transform: scaleY(0.55) translateY(-6px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.24s ease,
+    visibility 0s linear 0.42s;
+}
+
+.island.is-open .island__sheet {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    transform 0.46s cubic-bezier(0.22, 1.2, 0.36, 1),
+    opacity 0.2s ease,
+    visibility 0s;
 }
 
 .island__sheet a {
   color: var(--light-2);
   text-decoration: none;
   font-family: var(--serif);
-  font-size: 1.9rem;
+  font-size: 1.75rem;
   letter-spacing: -0.01em;
   text-transform: none;
-  padding: 0.45rem 0.5rem;
+  padding: 0.5rem 0.4rem;
+  /* each line follows the unfold a beat later */
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.island.is-open .island__sheet a {
+  opacity: 1;
+  transform: none;
 }
 
 .island__sheet .island__cta {
-  margin-top: 0.75rem;
+  margin-top: 0.6rem;
   text-align: center;
   padding: 0.9rem;
   font-family: var(--mono);
   font-size: 0.72rem;
+  color: #0e0b08;
+}
+
+/* while open the pill loses its bottom curve so it joins the sheet */
+.island.is-open {
+  border-radius: 0 0 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .island__sheet,
+  .island__sheet a {
+    transition-duration: 0.001ms;
+  }
 }
 
 @media (max-width: 900px) {
@@ -324,18 +377,14 @@
     display: none;
   }
 
-  /* open: the pill grows into a panel, same element, same corners */
-  .island.is-open {
+  /* the pill widens once, and the sheet unfolds beneath it */
+  .island {
     width: calc(100% - 2.5rem);
-    flex-wrap: wrap;
-    align-items: flex-start;
-    border-radius: 0 0 1.6rem 1.6rem;
-    padding-bottom: 0.9rem;
   }
-  .island.is-open .island__sheet {
+  .island__sheet {
     display: flex;
   }
-  .island.is-open .island__brand {
+  .island__brand {
     flex: 1;
   }
 }
@@ -349,13 +398,11 @@
   }
 }
 
-/* the currency switch, a real select dressed to sit inside the island */
+/* the currency switch: the select covers the whole pill so the arrow works */
 .ccy {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0 0.5rem 0 0.55rem;
   border-radius: 999px;
   background: rgba(244, 239, 230, 0.08);
   color: var(--light-2);
@@ -367,32 +414,49 @@
   color: var(--light);
 }
 
-.ccy__select {
-  appearance: none;
-  background: none;
-  border: 0;
-  font: inherit;
+.ccy__face {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.6rem 0.42rem 0.65rem;
+  pointer-events: none;
+}
+
+.ccy__code {
   color: var(--ochre);
-  padding: 0.42rem 0;
-  cursor: pointer;
   letter-spacing: 0.08em;
 }
 
-.ccy__select:focus-visible {
+.ccy__chev {
+  display: block;
+  color: currentColor;
+}
+
+/* invisible, but it is the thing you actually click */
+.ccy__select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ccy:focus-within {
   outline: 2px solid var(--ochre);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
 .ccy__select option {
   background: #14100b;
   color: #f4efe6;
   letter-spacing: normal;
-}
-
-.ccy__chev {
-  pointer-events: none;
-  color: var(--light-2);
+  text-transform: none;
 }
 
 /* --------------------------------------------------------------------- what */
@@ -625,15 +689,49 @@
   padding-bottom: 0.4rem;
 }
 
-.calc__select {
+/* a segmented switch, so the choices are visible instead of hidden in a list */
+.calc__switch {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  margin-bottom: 1.4rem;
+}
+
+.calc__seg {
   appearance: none;
   background: none;
   border: 0;
+  border-radius: 999px;
+  padding: 0.42rem 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+
+.calc__seg:hover {
+  color: var(--ink);
+}
+
+.calc__seg[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.calc__seg:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.calc__sym {
   font-family: var(--serif);
   font-size: clamp(1.8rem, 1.2rem + 2.4vw, 3rem);
   color: var(--ink-2);
-  cursor: pointer;
-  padding: 0 0.2rem 0 0;
+  line-height: 1;
 }
 
 .calc__amount {
