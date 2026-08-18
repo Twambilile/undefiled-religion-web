@@ -882,6 +882,26 @@
   max-width: 44rem;
 }
 
+/* the mark used as a sign-off, and in the hero */
+.signoff {
+  margin-top: clamp(2.5rem, 7vh, 4rem);
+}
+
+.signoff--lead {
+  margin: 0 0 clamp(2rem, 5vh, 3rem);
+}
+
+.signoff__link {
+  display: inline-block;
+  color: var(--fg);
+  line-height: 0;
+}
+
+.hero__mark {
+  margin: 0 0 1.4rem;
+  line-height: 0;
+}
+
 /* ----------------------------------------------------------------- the mark */
 
 .themark__grid {

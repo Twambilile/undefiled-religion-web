@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { Link } from 'react-router-dom'
 import { Counter, MaskedLines, Plane, useGsap } from '../lib/motion'
+import Mark from '../components/Mark'
 import { useCurrency } from '../lib/currency'
 import { entries, familiesSupportedNow, fmtIn, total, totalGbp, valueIn } from '../data/ledger'
 
@@ -36,6 +37,10 @@ export default function Hero() {
         <Plane speed={0.8} className="plane wash wash--earth" />
       </div>
       <div className="grain" aria-hidden="true" />
+
+      <p className="hero__mark" data-hero-fade>
+        <Mark size={38} className="mark--hover" />
+      </p>
 
       <p className="eyebrow" data-hero-fade>
         Malawi, since 10 October 2022

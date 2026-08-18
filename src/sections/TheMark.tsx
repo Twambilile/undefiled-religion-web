@@ -26,16 +26,14 @@ export default function TheMark() {
 
         <div className="themark__body">
           <Reveal as="p" className="lead">
-            A circle, a square, a triangle, a diamond, an arch, a capsule. Some large,
-            some small, three of them carrying colour and the rest taking the ink of
-            whatever they sit on. Nobody in this is interchangeable and the mark does not
-            pretend otherwise.
+            A circle, a square, a diamond, an arch. Different shapes because we are
+            different members with different places in the body of Christ, and none of us
+            is a copy of anybody else.
           </Reveal>
 
           <Reveal as="p">
             What holds it together is the grid. Every shape sits on its own point, none
-            of them touch, and it still reads as one object. That is the argument: the
-            difference is the point, and so is the fact that it is one thing.
+            of them touch, and it still reads as one thing.
           </Reveal>
 
           <Reveal>
@@ -46,13 +44,6 @@ export default function TheMark() {
               </p>
               <cite className="verse__cite">1 Corinthians 12:12, King James Version</cite>
             </blockquote>
-          </Reveal>
-
-          <Reveal as="p" className="dim">
-            There is an older line that fits this project more exactly. Psalm 68 says God
-            sets the solitary in families. That is the thing we are actually trying to
-            do, and it is why the shapes are a family rather than a logo of a hand or a
-            heart.
           </Reveal>
         </div>
       </div>

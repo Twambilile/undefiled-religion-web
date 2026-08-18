@@ -2,11 +2,14 @@ import { Link } from 'react-router-dom'
 import Ledger from '../sections/Ledger'
 import Breakdown from '../sections/Breakdown'
 import { Reveal } from '../lib/motion'
+import Curtain from '../components/Curtain'
+import Mark from '../components/Mark'
 import { completeFrom, lastUpdated, monthLabel } from '../data/ledger'
 
 export default function LedgerPage() {
   return (
     <main id="main">
+      <Curtain />
       <Ledger />
       <Breakdown />
       <section className="section surface--dark">
@@ -24,6 +27,12 @@ export default function LedgerPage() {
         </Reveal>
         <Reveal as="p" className="dim">
           Last updated {lastUpdated}. <Link to="/">Back to the beginning</Link>.
+        </Reveal>
+
+        <Reveal className="signoff">
+          <Link to="/" className="signoff__link" aria-label="Undefiled Religion, home">
+            <Mark size={44} />
+          </Link>
         </Reveal>
       </section>
     </main>

@@ -303,6 +303,24 @@ p,
     transform 0.85s cubic-bezier(0.16, 1.1, 0.3, 1);
 }
 
+/* Hover, anywhere the mark sits inside a link or is marked interactive. Each
+   shape turns on its own delay, so it ripples across the grid rather than
+   spinning as one block. */
+a:hover .mark__bit,
+button:hover .mark__bit,
+.mark--hover:hover .mark__bit {
+  animation: mark-turn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes mark-turn {
+  40% {
+    transform: rotate(160deg) scale(0.82);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
 /* the nav mark plays once when the page loads */
 .island__logo .mark__bit {
   opacity: 0;
@@ -320,12 +338,60 @@ p,
   }
 }
 
+/* The ledger opens behind this: the mark assembles, then the curtain lifts.
+   The page underneath is already rendered, so nothing is being waited on and
+   nothing is hidden from a crawler. */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  background: var(--dark);
+  animation: curtain-lift 0.55s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+}
+
+.curtain__mark {
+  color: var(--light);
+  animation: curtain-mark 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.curtain .mark__bit {
+  opacity: 0;
+  animation: mark-in 0.75s cubic-bezier(0.16, 1.1, 0.3, 1) forwards;
+}
+
+@keyframes curtain-lift {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes curtain-mark {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mark__bit,
-  .island__logo .mark__bit {
+  .island__logo .mark__bit,
+  .curtain .mark__bit {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+  a:hover .mark__bit,
+  button:hover .mark__bit,
+  .mark--hover:hover .mark__bit {
+    animation: none !important;
+  }
+  .curtain {
+    display: none;
   }
 }
 

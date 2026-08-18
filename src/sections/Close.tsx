@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import { MaskedLines, Plane, Reveal } from '../lib/motion'
+import Mark from '../components/Mark'
 import { isPlaceholder, monthsRunning } from '../data/ledger'
 
 export default function Close() {
@@ -11,6 +13,12 @@ export default function Close() {
       </div>
 
       <div>
+        <Reveal className="signoff signoff--lead">
+          <Link to="/" className="signoff__link" aria-label="Undefiled Religion, home">
+            <Mark size={52} />
+          </Link>
+        </Reveal>
+
         <MaskedLines
           as="h2"
           text="That is the whole thing."
