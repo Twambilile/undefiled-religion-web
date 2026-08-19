@@ -68,6 +68,20 @@ no place beyond "Malawi", no photographs of children or of any identifiable
 person. The generated imagery is abstract on purpose: light, dust, cloth, paper,
 ink, a maize field at dusk. It stays that way.
 
+## Hosting
+
+The site is served by Vercel from the `undefiledreligion.org` domain.
+
+`vercel.json` holds one rewrite, and it is load bearing. This is a single page
+app: `/ledger` exists in the router, not on disk, so without the rewrite a
+refresh on that URL is a 404. Vercel checks the filesystem first, so real files
+(`/logos.html`, `/planes/*.webp`, the built assets) still serve themselves and
+only unmatched paths fall through to `index.html`.
+
+The GitHub Actions workflow publishes to GitHub Pages as well, which is a second
+live copy at the `github.io` address. The `404.html` it writes is the Pages
+convention for the same problem and does nothing on Vercel.
+
 ## Running it
 
 ```bash
