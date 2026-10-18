@@ -11,15 +11,15 @@
   "perGbp": {
     "USD": 1.3318,
     "EUR": 1.185,
-    "ZAR": 21.9513,
-    "CAD": 1.8855,
-    "AUD": 1.918,
+    "ZAR": 21.9448,
+    "CAD": 1.8853,
+    "AUD": 1.9176,
     "KES": 173,
-    "NGN": 1768,
-    "INR": 126.5553,
+    "NGN": 1764,
+    "INR": 126.5065,
     "AED": 4.8912
   },
-  "liveGbpToMwk": 2327,
-  "ratesUpdated": "2026-10-17",
+  "liveGbpToMwk": 2326,
+  "ratesUpdated": "2026-10-18",
   "ratesSource": "open.er-api.com"
 }
