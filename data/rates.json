@@ -9,17 +9,17 @@
     "2026": 2600
   },
   "perGbp": {
-    "USD": 1.32,
-    "EUR": 1.2004,
-    "ZAR": 22.3477,
-    "CAD": 1.8871,
-    "AUD": 1.9595,
-    "KES": 172,
-    "NGN": 1763,
-    "INR": 123.3935,
-    "AED": 4.8478
+    "USD": 1.3158,
+    "EUR": 1.1991,
+    "ZAR": 22.6788,
+    "CAD": 1.8843,
+    "AUD": 1.9582,
+    "KES": 171,
+    "NGN": 1765,
+    "INR": 122.9415,
+    "AED": 4.8321
   },
-  "liveGbpToMwk": 2301,
-  "ratesUpdated": "2026-11-18",
+  "liveGbpToMwk": 2300,
+  "ratesUpdated": "2026-11-19",
   "ratesSource": "open.er-api.com"
 }
